@@ -26,7 +26,7 @@ form.addEventListener('submit',function(event) {
         return;
     }
     if(!passwordRegex.test(password)){
-        displayErrorMessage("password","please enter a vlid password (alphabets and numbers only)");
+        displayErrorMessage("password","please enter a valid password (alphabets and numbers only)");
         isValid = false;
         return;
     }
