@@ -1,0 +1,89 @@
+.content{
+    flex-direction: column;
+}
+
+/*Giving grey colour to placeholder text in dropdown menu*/
+select:invalid{
+    color:grey;
+}
+
+
+/* Giving each option in the dropdown box a colour of black*/
+option{
+    color:black;
+}
+.createQuizTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.descriptionDiv{
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.largeInput{
+    display: flex;
+    height: 100px;
+    max-height: 200px;
+    width: 100%;
+    font-size: 20px;
+    max-width: 60vw;
+    margin: 10px;
+}
+
+.addQuestion{
+    flex-direction: column;
+    border: 2px solid;
+    border-color: black;
+}
+
+
+
+
+
+.questionTitle{
+    width: 30%;
+    margin: 20px;
+    padding: 10px;
+    font-size: 35px;
+}
+
+.answerBoxInput{
+    font-size: 20px;
+    margin: 5px;
+}
+
+.categorySelectionSection{
+    display: flex;
+    font-size: 20px;
+}
+
+.addIcon{
+    display: flex;
+    justify-content: space-evenly;
+    height: 40px;
+
+}
+
+.addButtonSection{
+    display: flex;
+    justify-content: space-evenly;
+    height: 100px;
+    margin:20px;
+}
+
+.addQuestionButton{
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+.buttonContent{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+

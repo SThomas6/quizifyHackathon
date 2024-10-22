@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content = 'width=device-width, initial scale = 1.0'>
+        <link rel="stylesheet" href="/static/css/createQuiz.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <title>Create quiz</title>
+    </head>
+    <!--put the navbar here somewhere-->
+    <body>
+        <main class="layout content">
+            <h1 class="createQuizTitle">
+                Create quiz
+            </h1>
+            <section class='descriptionDiv'>
+                <!--description input--> 
+                <textarea class='largeInput' placeholder='Enter description here' type = 'text'></textarea>
+                <section class="categorySelectionSection">
+                    <!--label for drop down menu category-->
+                    <label for = 'category'>Category:</label>
+
+                    <!--drop down menu-->
+                    <select required name = 'category' >
+                        <option value="" disabled selected hidden>Select category</option>
+                        <option value='generalKnowledge'>General knowledge</option>
+                        <option value='scienceAndNature'>Science and nature</option>
+                        <option value='history'>History</option>
+                        <option value='popCulture'>Pop culture</option>
+                        <option value='geography'>Geography</option>
+                    </select>
+                </section>    
+            </section>
+
+            <!--add question section-->
+            <section class="addQuestion boxStyle">
+                <!--Question title input box-->
+                    <input class='questionTitle' type="text" placeholder="Question title">
+
+                <!--List of possible answers for the question-->
+                <section class="answerBox">
+                    <ul>
+                        <li>
+                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
+                            <input type="checkbox">
+                        </li>
+                        <li>
+                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
+                            <input type="checkbox">
+                        </li>
+                        <li>
+                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
+                            <input type="checkbox">
+                        </li>
+                    </ul>
+                    
+                </section>
+            </section>
+
+            <section class="addButtonSection">
+                <button type="button" class="addQuestionButton">
+                    <section class="buttonContent">
+                        <img class="addIcon" src="/static/plusIcon.png" alt="Plus icon">
+        
+                            Add question
+                    </section>
+                </button>
+            </section>
+        </main>
+    </body>
+
+</html>
