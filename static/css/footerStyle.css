@@ -1,36 +1,60 @@
-.foot{
+
+
+.logoText{
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #000;
+    line-height: 0.1em;
+}
+
+.logoText span{
+    background-color:white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.footFlex{
     display: flex;
-    padding: 8%;
     justify-content: space-around;
+    padding: 0%;
 }
 
 .findUs{
-    background-color: aliceblue;
+    font-size: small;
     padding: 1%;
+    width: 24%;
 }
 
 .findUsTitle{
-    font-size: larger;
+    font-size: medium;
 }
 
 .internalLinks{
-    background-color:rgb(228, 163, 117);
+    font-size: small;
     padding: 1%;
+    width: 24%;
 }
 
-.internalLinks a{
-    text-decoration: wavy;
-}
-
-.internalLinks a:hover{
-    color:hotpink;
+.internalLinks ul{
+    column-count: 2;
 }
 
 .internalLinksTitle{
-    font-size: larger;
+    font-size: medium;
 }
 
 .removeBullets{
     list-style: none;
     padding: 0;
+}
+
+.newsletter{
+    padding: 1%;
+}
+
+.newsletterTitle{
+    font-size: medium;
+}
+
+.consentCheckbox{
+    font-size: smaller;
 }
