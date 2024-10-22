@@ -1,0 +1,36 @@
+.foot{
+    display: flex;
+    padding: 8%;
+    justify-content: space-around;
+}
+
+.findUs{
+    background-color: aliceblue;
+    padding: 1%;
+}
+
+.findUsTitle{
+    font-size: larger;
+}
+
+.internalLinks{
+    background-color:rgb(228, 163, 117);
+    padding: 1%;
+}
+
+.internalLinks a{
+    text-decoration: wavy;
+}
+
+.internalLinks a:hover{
+    color:hotpink;
+}
+
+.internalLinksTitle{
+    font-size: larger;
+}
+
+.removeBullets{
+    list-style: none;
+    padding: 0;
+}
