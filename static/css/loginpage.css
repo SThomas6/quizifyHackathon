@@ -1,0 +1,37 @@
+body{
+    background-color: lightblue;
+}
+.heading{
+    color: white;
+    text-align: center;
+    font-size: 60px;
+}
+.login_form{
+    background-color: white;
+    width: 40%;
+    border-radius: 20px;
+    text-align: center;
+    margin: auto;
+
+
+}
+.login_form input{
+    padding: 10px;
+    margin-bottom: 5px;
+    border-end-end-radius: 1px blue;
+    border-radius: 4px;
+    font-size: 15px;
+    color: black;
+    width: 50%;
+
+}
+.btnn{
+    background-color: blue;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
