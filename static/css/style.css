@@ -1,0 +1,17 @@
+/* This gives the website a linear colour background */
+body {
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,81,121,1) 0%, rgba(0,212,255,1)100%); /* Sets fade between colours */
+    min-height: 100vh;
+}
+/* This sets the layout for the website which is a white box in the center of the screen */
+.layout {
+    display: flex; /* Sets the box to a flex box */
+    width: 80vw;
+    background-color: white; /* Sets the background colour to white */
+    border: 0.25vw solid black; /* Sets border colour to black */
+    padding: 10px;
+    margin: 70px auto 6vw auto;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
