@@ -1,7 +1,6 @@
 from flask import Flask, redirect, render_template, request, flash
 from flask_session import Session
 import json
-from werkzeug.security import generate_password_hash, check_password_hash
 
 # might need flask_session library and session module
 app = Flask(__name__)
@@ -45,8 +44,11 @@ def write_user(data):
     with open(user, "w") as user_file:
         json.dump(data, user_file, indent=4)
 
-""" This line loops through the read database that is users and checks 
-    if the databsecontains the requested username.
+""" The weird line used below with the next() is called a generator expression which 
+    loops through the read database that is users and checks if the database contains
+    the requested username.
+    source: https://www.geeksforgeeks.org/generator-expressions/
+    
     next() function returns the next item in an iterable
     source: https://docs.python.org/3/library/functions.html#next"""
 
@@ -75,12 +77,11 @@ def index():
 def login():
     # clear the previous session
     session.clear()
-    
-    username = request.form.get("username")
-    password = request.form.get("password")
-    
     # check if the username is provided, if not prompt the user to input it
     if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
         if not username:
             return "Must Enter Username"
         elif not password:
@@ -94,21 +95,31 @@ def login():
         if checked_password == False:
             return "Wrong password!"
         
-        session["username"] == user["username"]
+        session["username"] = user["username"]
         return redirect("/")
     return redirect("login.html")
 
 @app.route("/register")
 def register():
-    # clear the session
-    # store the inputed username in a variable
-    # establish a connection to the database
-    # check if that username already exists in the database
-        # if yes, alert the user that that username is taken
-        # else store the inputed password in a variable and store both the password and the username in the database
-    # update the session
-    # redirect to the home page
-    return "To-do"
+    session.clear()
+    
+    if request.method == "Post":
+        email = request.form.get("email")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        account_type = request.form.get("account_type")
+        # idk if I should compare the password and the confirm password here or somewhere else
+        
+        checked_username = check_username(username)
+        if checked_username == False:
+            user = write_user()
+            user.append({"username": username, "password": password, "email": email, "account_type": account_type})
+            session["username"] = user["username"]
+            return redirect("/")
+        
+        return "Username already exists, choose a different username."
+    
+    return redirect("regist.html")
 
 @app.route("/logout")
 def logout():
