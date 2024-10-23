@@ -14,6 +14,10 @@
                 Create quiz
             </h1>
             <section class='descriptionDiv'>
+                <!--Quiz title input-->
+                <section>
+                    <input class="quizTitle" type="text" placeholder="Quiz title">
+                </section>
                 <!--description input--> 
                 <textarea class='largeInput' placeholder='Enter description here' type = 'text'></textarea>
                 <section class="categorySelectionSection">
@@ -32,40 +36,6 @@
                 </section>    
             </section>
 
-            <!--add question section-->
-            <section class="addQuestion boxStyle">
-                <!--Question title input box-->
-                    <input class='questionTitle' type="text" placeholder="Question title">
-
-                <!--List of possible answers for the question-->
-                <section class="answerBox">
-                    <ul>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                    </ul>
-                    
-                </section>
-            </section>
-
-            <section class="addButtonSection">
-                <button type="button" class="addQuestionButton">
-                    <section class="buttonContent">
-                        <img class="addIcon" src="/static/plusIcon.png" alt="Plus icon">
-        
-                            Add question
-                    </section>
-                </button>
-            </section>
         </main>
     </body>
 

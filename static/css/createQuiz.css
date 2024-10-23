@@ -2,6 +2,8 @@
     flex-direction: column;
 }
 
+/* Quiz title and description*/
+
 /*Giving grey colour to placeholder text in dropdown menu*/
 select:invalid{
     color:grey;
@@ -23,6 +25,10 @@ option{
     margin: 20px;
     align-items: center;
     justify-content: space-evenly;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 6px;
+    flex-direction: column;
 }
 .largeInput{
     display: flex;
@@ -32,58 +38,25 @@ option{
     font-size: 20px;
     max-width: 60vw;
     margin: 10px;
+    border-radius: 6px;
 }
 
-.addQuestion{
-    flex-direction: column;
-    border: 2px solid;
-    border-color: black;
+.quizTitle{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    border-radius: 6px;
 }
-
-
-
-
-
-.questionTitle{
-    width: 30%;
-    margin: 20px;
-    padding: 10px;
-    font-size: 35px;
-}
-
-.answerBoxInput{
-    font-size: 20px;
-    margin: 5px;
-}
-
 .categorySelectionSection{
     display: flex;
     font-size: 20px;
 }
 
-.addIcon{
-    display: flex;
-    justify-content: space-evenly;
-    height: 40px;
 
-}
 
-.addButtonSection{
-    display: flex;
-    justify-content: space-evenly;
-    height: 100px;
-    margin:20px;
-}
 
-.addQuestionButton{
-    display: flex;
-    justify-content: space-evenly;
-    width: 40%;
-}
 
-.buttonContent{
-    display: flex;
-    justify-content: space-evenly;
-}
+
+
 
 
