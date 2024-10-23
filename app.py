@@ -41,7 +41,7 @@ def write_quiz(data):
     with open(quiz, "w") as quiz_file:
         json.dump(data, quiz_file, indent=4)
 
-def write_data(data):
+def write_user(data):
     with open(user, "w") as user_file:
         json.dump(data, user_file, indent=4)
 
