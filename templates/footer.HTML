@@ -12,12 +12,12 @@
 
     <footer class="foot">
 
-        <div class="logo"> 
+        <section class="logo"> 
             <!-- Creating the seperator at the top of the footer to make clear where it begins.
             span used to stop the strikethrough when it reaches "quizzify"-->
             <h1 class="logoImg"><span><img src="../static/images/logo.webp" alt="Logo"></span></h1>
-        </div>
-        <div class="footFlex"> <!-- Encasing the footer content in a flex box for styling-->
+        </section>
+        <section class="footFlex"> <!-- Encasing the footer content in a flex box for styling-->
             <address class="findUs">
                 <!-- Creating a segment with information to be able to find/contact us-->
                 <h1 class="findUsTitle">
@@ -63,25 +63,25 @@
                 <!-- Creating a newsletter form that posts
                 the entered data into the database (NOT COMPLETED) -->
                 <h1 class="newsletterTitle">Sign up to our newsletter:</h1>
-                <div class="emailInput"> <!-- Section for user to enter email and recieve 
+                <section class="emailInput"> <!-- Section for user to enter email and recieve 
                     emails with information about any updates to the site-->
                     <label for="email">Email:
                     </label>
                     <input type="email" id="userEmail" name="userEmail" required
                     />
-                </div>
-                <div class="consentCheckbox"> <!-- Basic Checkbox to ensure the user consents to data collection-->
+                </section>
+                <section class="consentCheckbox"> <!-- Basic Checkbox to ensure the user consents to data collection-->
                     <label for="consent">"By continuing you consent to the collection and <br>
                         processing of your data in accordance with our Privacy Policy."
                     </label>
                     <input type="checkbox" id="consent" name="consent" required
                     />
-                </div>
-                <div class="submitButton">
+                </section>
+                <section class="submitButton">
                     <input type="submit" value="Subscribe"/>
-                </div>
+                </section>
             </form>
             
-        </div>
+        </section>
     </footer>
 </html>
