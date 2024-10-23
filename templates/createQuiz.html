@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!--SEO optimisation-->
         <meta charset="UTF-8">
         <meta name = "viewport" content = 'width=device-width, initial scale = 1.0'>
         <link rel="stylesheet" href="/static/css/createQuiz.css">
@@ -14,6 +15,10 @@
                 Create quiz
             </h1>
             <section class='descriptionDiv'>
+                <!--Quiz title input-->
+                <section>
+                    <input class="quizTitle" type="text" placeholder="Quiz title">
+                </section>
                 <!--description input--> 
                 <textarea class='largeInput' placeholder='Enter description here' type = 'text'></textarea>
                 <section class="categorySelectionSection">
@@ -33,7 +38,7 @@
             </section>
 
             <!--add question section-->
-            <section class="addQuestion boxStyle">
+            <section class="addQuestion">
                 <!--Question title input box-->
                     <input class='questionTitle' type="text" placeholder="Question title">
 
@@ -53,19 +58,19 @@
                             <input type="checkbox">
                         </li>
                     </ul>
-                    
+                    <!--Add option button to add options to the question-->
+                    <button class="addOptionButton">
+                        <span class="icon">+</span>
+                        <span class="text">Add option</span>
+                    </button>
                 </section>
             </section>
 
-            <section class="addButtonSection">
-                <button type="button" class="addQuestionButton">
-                    <section class="buttonContent">
-                        <img class="addIcon" src="/static/plusIcon.png" alt="Plus icon">
-        
-                            Add question
-                    </section>
-                </button>
-            </section>
+            <!--Add question button-->
+            <button class="button addQuestionButton">
+                <img src="/static/plusIcon.png" alt="Add" class="icon">
+                <span class="text">Add question</span>
+            </button>
         </main>
     </body>
 
