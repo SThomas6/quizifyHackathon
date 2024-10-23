@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 from flask_session import Session
 import json
 
@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return redirect("/Home.html")
+    return render_template("homePage.html")
 
 @app.route("/login")
 def login():
@@ -85,10 +85,14 @@ def rank_quiz(category):
     # store the titles of the 
     return "To-do"
 
+# def time_limit():
+
+# def 
+
 """ Database Structure:
         - User registry:
             - Columns:
-                - id - auto incrmented (Has to be unique)
+                - id - auto incrmented (Has to be unique) (Unique id does not exist in json, I think?! so probably doesn't apply)
                 - username (Has to be unique)
                 - password
                 - status of account (user or moderator)
@@ -97,7 +101,7 @@ def rank_quiz(category):
         
         - Quizzes:
             - Columns:
-                - id - autoincrement Unique
+                - id - autoincrement Unique (Unique id does not exist in json, I think?! so probably doesn't apply)
                 - title 
                 - description
                 - category
