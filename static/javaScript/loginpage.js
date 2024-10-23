@@ -1,13 +1,13 @@
-var form = document.getElementById('login')
+var form = document.getElementById('login');
 form.addEventListener('submit',function(event){
     event.preventDefault();
-    var email = document.getAnimations("email").value;
+    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
 
     let isValid = true;
 
-    let emailRagex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/;
-    let passwordRagex = /^[A-Za-z0-9]+/;
+    let emailRagex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    let passwordRagex = /^[A-Za-z0-9]+$/;
 
     if(!emailRagex.test(email)){
         displayErrorMessage("email", "please enter a valid email address");
@@ -15,7 +15,7 @@ form.addEventListener('submit',function(event){
         return;
     }
     if(!passwordRagex.test(password)){
-        displayErrorMessage("passwors", "please enter a valid email address");
+        displayErrorMessage("password", "please enter a valid email address");
         isValid = false;
         return;
     }
