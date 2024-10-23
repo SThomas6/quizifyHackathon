@@ -2,22 +2,7 @@
     flex-direction: column;
 }
 
-/*Giving grey colour to placeholder text in dropdown menu*/
-select:invalid{
-    color:grey;
-}
-
-
-/* Giving each option in the dropdown box a colour of black*/
-option{
-    color:black;
-}
-.createQuizTitle{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
+/*Divider for the description section of the create quiz page*/
 .descriptionDiv{
     display: flex;
     margin: 20px;
@@ -28,6 +13,32 @@ option{
     border-radius: 6px;
     flex-direction: column;
 }
+
+/*Giving grey colour to placeholder text in dropdown menu when user hasn't selected anything*/
+select:invalid{
+    color:grey;
+}
+
+
+/* Giving each option in the dropdown box a colour of black*/
+option{
+    color:black;
+}
+
+/*Quiz title class for h1 tag in the html page*/
+.createQuizTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+/* Dropdown menu to select the category*/
+.categorySelectionSection{
+    display: flex;
+    font-size: 20px;
+}
+/*the input area to input the description for the quiz that is being created*/
 .largeInput{
     display: flex;
     height: 100px;
@@ -39,6 +50,9 @@ option{
     border-radius: 6px;
 }
 
+/* Quiz question section of the page*/
+
+/*the title for the quiz that is being created*/
 .quizTitle{
     display: flex;
     flex-direction: row;
@@ -46,6 +60,7 @@ option{
     border-radius: 6px;
 }
 
+/*the section to add the question to the quiz*/
 .addQuestion{
     flex-direction: column;
     background-color: #f5f5f5;
@@ -54,6 +69,7 @@ option{
     border-radius: 6px;
 }
 
+/*the title for the question*/
 .questionTitle{
     width: 30%;
     margin: 20px;
@@ -62,31 +78,14 @@ option{
     border-radius: 6px;
 }
 
+/*the input area for the answer for the question*/
 .answerBoxInput{
     font-size: 20px;
     margin: 5px;
     border-radius: 6px;
 }
 
-.categorySelectionSection{
-    display: flex;
-    font-size: 20px;
-}
-
-.addIcon{
-    display: flex;
-    justify-content: space-evenly;
-    height: 40px;
-
-}
-
-.addButtonSection{
-    display: flex;
-    justify-content: space-evenly;
-    height: 100px;
-    margin:20px;
-}
-
+/*add question button*/
 .addQuestionButton{
     display: flex;
     justify-content: space-evenly;
@@ -100,7 +99,7 @@ option{
 
 
 
-/*Add option button styling*/
+/*Add option for the question button styling*/
 .addOptionButton {
     display: flex;
     align-items: center;
@@ -113,7 +112,7 @@ option{
     margin-left: 40px;
 }
 
-/* Icon styling */
+/* Add icon styling */
 .addOptionButton .icon {
     font-size: 24px;
     margin-right: 8px; /* Space between the icon and text */
