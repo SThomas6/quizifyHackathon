@@ -2,8 +2,6 @@
     flex-direction: column;
 }
 
-/* Quiz title and description*/
-
 /*Giving grey colour to placeholder text in dropdown menu*/
 select:invalid{
     color:grey;
