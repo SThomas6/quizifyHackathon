@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/navBar.css">
 </head>
+
+<nav class="navBar">
+    {% include 'navBar.html' %}
+</nav>
+
 <body>
     <nav class="navStyle fade-in"> <!-- Calls the class style and fade in so that they are implemented -->
         <a href="#homePage.html">Homepage</a> <!-- Link to the homepage -->
@@ -36,4 +41,8 @@
     </section>
     <script src="../static/javaScript/loginpage.js"></script>
 </body>
+
+<footer class="footer">
+    {% include 'footer.html' %}
+</footer>
 </html>
