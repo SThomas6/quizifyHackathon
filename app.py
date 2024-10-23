@@ -7,7 +7,7 @@ def login_page():
 
 
 
-        return render_template("loginpage.html")
+        return render_template("LogIn.html")
 
     if request.method =='POST':
         data = request.form
