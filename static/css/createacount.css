@@ -26,7 +26,8 @@ body{
     border-radius: 4px;
     font-size: 15px;
     color: black;
-    width: 40%;
+    width: 70%;
+    
 }
 .mybtn{
     background-color: blue;
@@ -38,5 +39,6 @@ body{
     margin: 4px 2px;
     cursor: pointer;
 }
-
-
+a{
+    color: blue;
+}

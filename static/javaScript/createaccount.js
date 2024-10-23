@@ -16,7 +16,7 @@ form.addEventListener('submit',function(event) {
 
 
     if(!nameRegex.test(name)){
-        displayErrorMessage("name","please enter a valid name(aplhabets only");
+        displayErrorMessage("name","please enter a valid name(aplhabets only)");
         isValid = false;
         return;
     }
