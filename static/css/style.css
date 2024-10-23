@@ -76,8 +76,10 @@ p {
     border-radius: 6px; /* Sets the corners of the box to be rounded */
  }
  /* This removes the underline and sets the font to white */
-
-
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
 /* This is the style for links while being hovered over so that the link is underlined */
 a:hover {
     text-decoration: underline;
