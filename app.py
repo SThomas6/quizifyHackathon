@@ -1,17 +1,53 @@
 from flask import Flask, redirect, render_template
+from flask_session import Session
+import json
 
 # might need flask_session library and session module
 
 app = Flask(__name__)
 
+# This section is to keep track of who is signed in
+# The below line makes sure that the session is not forever, it will last until the web-browser is closed.
+# app.config["SESSION_PERMANENT"] = False
+
+# This makes sure the the session is saved on the server's file system and not on memory (which is temporary storage)
+# app.config["SESSION_TYPE"] = "filesystem"
+
+# This passes the app to the session
+# Session(app)
+
+# (experimental)
+# data_file = "data/data.json"
+
+# For reading data from the database (experimental)
+# def read_data():
+#     try:
+#         with open(data_file, 'r') as file:
+#             return json.load(file)
+#     except (FileNotFoundError, json.JSONDecodeError):
+#         return []
+
+# For writing data to the database (experimental)
+# def write_data(data):
+#     with open(data_file, "w") as file:
+#         json.dump(data, file, indent=4)
+
 @app.route("/")
 def index():
-    return ("todo!")
+    return redirect("/Home.html")
 
 @app.route("/login")
 def login():
     # clear the previous session
+    # session.clear()
+    
     # check if the username is provided, if not prompt the user to input it
+    # if request.method == "POST":
+    #     if not request.form.get("username"):
+    #         return "Must Enter Username"
+    # elif not request.form.get("password"):
+    #     return "Must Entere Password"
+    
     # check if the username exists in the database, if it doesn't alert the user
     # if username exists compare the password the user inputed to the one stored in the database with the check_password function
     # if they match then store the session and redirect to the home page
@@ -46,7 +82,7 @@ def logout():
 def rank_quiz(category):
     # establish a connection to the database
     # based on the argument passed to this function query the database
-    # wi
+    # store the titles of the 
     return "To-do"
 
 """ Database Structure:
