@@ -76,6 +76,9 @@ option{
     padding: 10px;
     font-size: 35px;
     border-radius: 6px;
+    width: 40%;
+    min-width: 225px;
+    
 }
 
 /*the input area for the answer for the question*/
@@ -132,6 +135,19 @@ option{
 width: 20px;  /* Adjust based on the size of the icon */
 height: 20px; /* Adjust based on the size of the icon */
 display: inline-block;
+}
+
+/*submit button styling and positioning*/
+.submitButton{
+    height: 40px;
+    width: 100px;
+}
+
+.submitButtonDiv{
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    margin: 40px;
 }
 
 
