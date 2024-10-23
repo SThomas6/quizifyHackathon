@@ -23,6 +23,10 @@ option{
     margin: 20px;
     align-items: center;
     justify-content: space-evenly;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 6px;
+    flex-direction: column;
 }
 .largeInput{
     display: flex;
@@ -32,28 +36,36 @@ option{
     font-size: 20px;
     max-width: 60vw;
     margin: 10px;
+    border-radius: 6px;
+}
+
+.quizTitle{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    border-radius: 6px;
 }
 
 .addQuestion{
     flex-direction: column;
-    border: 2px solid;
-    border-color: black;
+    background-color: #f5f5f5;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 6px;
 }
-
-
-
-
 
 .questionTitle{
     width: 30%;
     margin: 20px;
     padding: 10px;
     font-size: 35px;
+    border-radius: 6px;
 }
 
 .answerBoxInput{
     font-size: 20px;
     margin: 5px;
+    border-radius: 6px;
 }
 
 .categorySelectionSection{
@@ -84,6 +96,43 @@ option{
 .buttonContent{
     display: flex;
     justify-content: space-evenly;
+}
+
+
+
+/*Add option button styling*/
+.addOptionButton {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: #000000; /* Adjust the color to match the blue/purple in your image */
+    font-size: 16px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-left: 40px;
+}
+
+/* Icon styling */
+.addOptionButton .icon {
+    font-size: 24px;
+    margin-right: 8px; /* Space between the icon and text */
+}
+
+/* Add question button styling */
+.addQuestionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the icon and text */
+    margin: auto;
+}
+
+  /* Icon styling */
+.addQuestionButton .icon {
+width: 20px;  /* Adjust based on the size of the icon */
+height: 20px; /* Adjust based on the size of the icon */
+display: inline-block;
 }
 
 

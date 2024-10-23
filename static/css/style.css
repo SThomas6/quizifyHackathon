@@ -53,7 +53,7 @@ p {
     margin-bottom: 15px;
 }
 /* Sets all button elements to the following: */
-button {
+.button {
     background-color: rgba(0,212,255,1); /* Sets the background of buttons to a light blue */
     color: #FFFFFF; /* Sets the font within all buttons to white */
     padding: 10px 20px;
@@ -64,7 +64,7 @@ button {
     transition: background-color 0.3s; /* Sets a timer for the transition so that its smoother */
 }
 /* Changes the background colour of buttons when they are being hovered over */
-button:hover {
+.button:hover {
     background-color: rgba(9,81,121,1);
 }
 /* Sets the default style for boxes */
