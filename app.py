@@ -3,34 +3,71 @@ from flask_session import Session
 import json
 
 # might need flask_session library and session module
-
 app = Flask(__name__)
 
 # This section is to keep track of who is signed in
 # The below line makes sure that the session is not forever, it will last until the web-browser is closed.
-# app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_PERMANENT"] = False
 
 # This makes sure the the session is saved on the server's file system and not on memory (which is temporary storage)
-# app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_TYPE"] = "filesystem"
 
 # This passes the app to the session
-# Session(app)
+Session(app)
 
 # (experimental)
-# data_file = "data/data.json"
+quiz = "data/quiz.json"
+user = "data/user.json"
 
 # For reading data from the database (experimental)
-# def read_data():
-#     try:
-#         with open(data_file, 'r') as file:
-#             return json.load(file)
-#     except (FileNotFoundError, json.JSONDecodeError):
-#         return []
+def read_quiz():
+    try:
+        with open(quiz, 'r') as quiz_file:
+            return json.load(quiz_file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+    
+def read_user():
+    try:
+        with open(user, 'r') as user_file:
+            return json.load(user_file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
 
 # For writing data to the database (experimental)
-# def write_data(data):
-#     with open(data_file, "w") as file:
-#         json.dump(data, file, indent=4)
+def write_quiz(data):
+    with open(quiz, "w") as quiz_file:
+        json.dump(data, quiz_file, indent=4)
+
+def write_user(data):
+    with open(user, "w") as user_file:
+        json.dump(data, user_file, indent=4)
+
+""" The weird line used below with the next() is called a generator expression which 
+    loops through the read database that is users and checks if the database contains
+    the requested username.
+    source: https://www.geeksforgeeks.org/generator-expressions/
+    
+    next() function returns the next item in an iterable
+    source: https://docs.python.org/3/library/functions.html#next"""
+
+def check_username(username):
+    users = read_user()
+    user = next((u for u in users if u["username"] == username), None)
+    if user == None:
+        return False
+    
+def check_password(input_password, username):
+    users = read_user()
+    user = next((u for u in users if u["username"] == username), None)
+    if user != None:
+        user_password = (user["password"] == input_password)
+        if user_password:
+            return True
+        return False
+    return "Error finding password in database"
+
 
 @app.route("/")
 def index():
@@ -39,45 +76,55 @@ def index():
 @app.route("/login")
 def login():
     # clear the previous session
-    # session.clear()
-    
+    session.clear()
     # check if the username is provided, if not prompt the user to input it
-    # if request.method == "POST":
-    #     if not request.form.get("username"):
-    #         return "Must Enter Username"
-    # elif not request.form.get("password"):
-    #     return "Must Entere Password"
-    
-    # check if the username exists in the database, if it doesn't alert the user
-    # if username exists compare the password the user inputed to the one stored in the database with the check_password function
-    # if they match then store the session and redirect to the home page
-    return "To-do"
-
-def check_password(username, password):
-    # establish a connection to the databse
-    # look for the username in the database
-        # if found store the password in a variable
-        # compare the value of that variable with the password that the user just submitted aka(password argument)
-        # if they match return true, else return false
-    return "To-do"
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        if not username:
+            return "Must Enter Username"
+        elif not password:
+            return "Must Entere Password"
+        
+        user = check_username(username)
+        if user == False:
+            return "Username does not exist!"
+        
+        checked_password = check_password(password)
+        if checked_password == False:
+            return "Wrong password!"
+        
+        session["username"] = user["username"]
+        return redirect("/")
+    return redirect("login.html")
 
 @app.route("/register")
 def register():
-    # clear the session
-    # store the inputed username in a variable
-    # establish a connection to the database
-    # check if that username already exists in the database
-        # if yes, alert the user that that username is taken
-        # else store the inputed password in a variable and store both the password and the username in the database
-    # update the session
-    # redirect to the home page
-    return "To-do"
+    session.clear()
+    
+    if request.method == "Post":
+        email = request.form.get("email")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        account_type = request.form.get("account_type")
+        # idk if I should compare the password and the confirm password here or somewhere else
+        
+        checked_username = check_username(username)
+        if checked_username == False:
+            user = write_user()
+            user.append({"username": username, "password": password, "email": email, "account_type": account_type})
+            session["username"] = user["username"]
+            return redirect("/")
+        
+        return "Username already exists, choose a different username."
+    
+    return redirect("regist.html")
 
 @app.route("/logout")
 def logout():
-    # clear the session
-    # redirect to the home page
-    return "To-do"
+    session.clear()
+    return redirect("/")
 
 def rank_quiz(category):
     # establish a connection to the database
@@ -95,7 +142,6 @@ def terms_and_conditions():
 @app.route("/privacy-Policy")
 def privacy_policy():
     return render_template("privacyPolicyPage.html")
-
 
 # Subscribing news letters
 @app.route("/subscribe", methods=["POST"])
