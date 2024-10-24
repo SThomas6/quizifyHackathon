@@ -1,3 +1,14 @@
 {
-    "user": []
+    "user": [
+        {
+            "email": "fsd@sdf.com",
+            "password": "1234",
+            "account_type": null
+        },
+        {
+            "email": "wedsffae@sdf.com",
+            "password": "1234",
+            "account_type": null
+        }
+    ]
 }
