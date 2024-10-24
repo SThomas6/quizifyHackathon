@@ -179,15 +179,15 @@ def rank_quiz(category):
     # store the titles of the 
     return "To-do"
 
-# Redirecting user to the termsAndConditionsPage.html
-@app.route("/terms-and-conditions")
-def terms_and_conditions():
-    return render_template("termsAndConditionsPage.html")
+# # Redirecting user to the termsAndConditionsPage.html
+# @app.route("/terms-and-conditions")
+# def terms_and_conditions():
+#     return render_template("termsAndConditionsPage.html")
 
-# redirecting user to the privacyPolicyPage.html file
-@app.route("/privacy-Policy")
-def privacy_policy():
-    return render_template("privacyPolicyPage.html")
+# # redirecting user to the privacyPolicyPage.html file
+# @app.route("/privacy-Policy")
+# def privacy_policy():
+#     return render_template("privacyPolicyPage.html")
 
 # Subscribing news letters
 @app.route("/subscribe", methods=["POST"])
@@ -201,5 +201,34 @@ def subscribe():
         return email
     else:
         return flash("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
+
+@app.route("/homePage")
+def homePage():
+    return render_template("homePage.html")
+
+@app.route("/createQuiz")
+def createQuiz():
+    return render_template("createQuiz.html")
+
+@app.route("/quizList")
+def quizList():
+    return render_template("quizList.html")
+
+@app.route("/createAccount")
+def createAccount():
+    return render_template("createAccount.html")
+
+@app.route("/loginPage")
+def loginPage():
+    return render_template("login.html")
+
+@app.route("/termsAndConditions")
+def termsAndConditions():
+    return render_template("termsAndConditions.html")
+
+@app.route("/privacyPolicy")
+def privacyPolicy():
+    return render_template("privacyPolicy.html") 
+    
 if __name__ == "__main__":
     app.run(debug=True)
