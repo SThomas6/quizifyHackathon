@@ -22,10 +22,16 @@
             <h1>
                 Quiz List
             </h1>
+            <!--Putting dropboxes/filters in a seperate section on the page-->
             <section class="dropboxes">
+                <!--Use forms so that the results can be used to render different lists-->
                 <form action="" method="post" class="categoryFilter">
-                    <button type="button" onclick="dropBox1()" class="dropbtn">Category</button>
+                    <!--Run js function that reveals the dropbox when it is clicked-->
+                    <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
                     <div id="categories" class="dropdownContent">
+                        <!--Create each button for the dropbox-->
+                        <!--I am currently using radio buttons but ideally it would use something else so 
+                        users can select multiple filters-->
                         <label for="generalKnowledge">
                             <input type="radio" id="generalKnowledge" name="category" value="generalKnowledge">
                             General Knowledge</label>
@@ -45,7 +51,7 @@
                         </label>
                     </div>
                 </form>
-
+                <!--Repeat for all dropboxes using different functions-->
                 <form action="" method="post" class="difficultyFilter">
                     <button type="button" onclick="dropBox2()" class="dropbtn">difficulty</button>
                     <div id="difficulties" class="dropdownContent">
@@ -79,10 +85,15 @@
                 </form>
             </section>
 
-            <section class="quizList">
-                <ul>
-                    <li>
-                        filler
+            <section class="quizzes">
+                <ul class="quizList">
+                    <div class="quizInfo"> <!--container for flex layout-->
+                        <h1 class="quizTitle">Quiz1</h1>
+                        <section class="quizDescription">
+                            <h2 class="descriptionTitle">Description</h2>
+                            <p class="description">This quiz is very fun and cool</p>
+                        </section>
+                        <button class="takeQuizButton">Take Quiz</button>
                     </li>
                 </ul>
             </section>
