@@ -16,8 +16,11 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # (experimental)
-quiz = "data/quiz.json"
-user = "data/user.json"
+quizDatabase = "data/quiz.json"
+userDatabase = "data/user.json"
+
+quizDatabaseVar = "quiz"
+userDatabaseVar = "user"
 
 # For reading data from the database (experimental)
 def read_quiz():
@@ -29,7 +32,7 @@ def read_quiz():
     
 def read_user():
     try:
-        with open(user, 'r') as user_file:
+        with open(userDatabase, 'r') as user_file:
             return json.load(user_file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -37,12 +40,12 @@ def read_user():
 
 # For writing data to the database (experimental)
 def write_quiz(data):
-    with open(quiz, "w") as quiz_file:
+    with open(quizDatabase, "w") as quiz_file:
         json.dump(data, quiz_file, indent=4)
 
 
-def write_user(new_user):
-    file_path = "data/user.json"
+def writeToDatabase(new_element, database_route, database):
+    file_path = database_route
     
     # This line checks if the json file exists
     if os.path.exists(file_path):
@@ -51,11 +54,11 @@ def write_user(new_user):
             data = json.load(read_file)
             
             """ This line ensures that the json file is a dictionary first, 
-            then if that dictionary has an element of "user", and finall
-            if the "user" element is list
+            then if that dictionary has an element of the database (either user or quiz), 
+            and finall it checks whether the element is list.
             Source for isinstance(): https://www.w3schools.com/python/ref_func_isinstance.asp"""
             
-            if isinstance(data, dict) and "user" in data and isinstance(data["user"], list):
+            if isinstance(data, dict) and database in data and isinstance(data[database], list):
                 users = data["user"]
             else:
                 return "Error sending over data to the database"
@@ -65,7 +68,7 @@ def write_user(new_user):
         users = data["user"]
 
     # This appends the new user to the list
-    users.append(new_user)
+    users.append(new_element)
 
     # The below line writes the updated data back to the file
     with open(file_path, "w") as user_file:
@@ -132,14 +135,13 @@ def login():
             flash("email does not exist!")
             return render_template("login.html")
         
-        checked_password = check_password(password)
+        checked_password = check_password(password, email)
         if checked_password == False:
             flash("Wrong password!")
             return render_template("login.html")
         
         session["email"] = user["email"]
         return redirect("/")
-    
     return render_template("login.html")
 
 @app.route("/register", methods=["POST", "GET"])
@@ -160,7 +162,7 @@ def register():
                 "password": password,
                 "account_type": account_type
                 }
-            write_user(user_data)
+            writeToDatabase(user_data)
             session["email"] = user_data["email"]
             return redirect("/")
         
@@ -228,7 +230,50 @@ def termsAndConditions():
 
 @app.route("/privacyPolicy")
 def privacyPolicy():
-    return render_template("privacyPolicy.html") 
+    return render_template("privacyPolicy.html")
+
+@app.route("/create-quiz")
+def create_quiz():
+    return render_template('createQuiz.html')
+
+#submit quiz function to collect the create quiz data
+@app.route('/submit-quiz', methods=['POST'])
+def submit_quiz():
+    #getting the data from the form and putting it into a variable
+    quizTitle = request.form.get('quizTitleInput')
+    quizDescription = request.form.get('quizDescriptionInput')
+    selectedCategory = request.form.get('categoryInput')
+    questionTitle = request.form.get('questionTitleInput')
+
+    #Getting the answers from teh form and putting them into a variable
+    questionAnswer1 = request.form.get('answer1Input')
+    questionAnswer2 = request.form.get('answer2Input')
+    questionAnswer3 = request.form.get('answer3Input')
+
+    #Getting the value of the checkbox from the form and checking if the value is true or false
+    correctAnswer1 = True if request.form.get('correctAnswer1') else False
+    correctAnswer2 = True if request.form.get('correctAnswer2') else False
+    correctAnswer3 = True if request.form.get('correctAnswer3') else False
+
+
+    #printing the data to the console
+    print(f"Quiz Title: {questionTitle}")
+    print(f"Description: {quizDescription}")
+    print(f"Category: {selectedCategory}")
+    print(f"Question Title: {questionTitle}")
+
+    #Getting the answers that have been submitted
+    print(f"Question Answer 1: {questionAnswer1}")
+    print(f"Question Answer 2: {questionAnswer2}")
+    print(f"Question Answer 3: {questionAnswer3}")
+
+    #Getting the boolean value of the checkbox to check which answer is correct
+    print(f"Correct answer 1: {correctAnswer1}")
+    print(f"Correct answer 2: {correctAnswer2}")
+    print(f"Correct answer 3: {correctAnswer3}")
+
+    # returning inputs
+    return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
     
 if __name__ == "__main__":
     app.run(debug=True)
