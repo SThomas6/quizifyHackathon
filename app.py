@@ -44,7 +44,7 @@ def write_quiz(data):
 def write_user(new_user):
     file_path = "data/user.json"
     
-    # Check if the database file exists
+    # This line checks if the json file exists
     if os.path.exists(file_path):
         with open(file_path, "r") as read_file:
             # Load existing data
@@ -60,14 +60,14 @@ def write_user(new_user):
             else:
                 return "Error sending over data to the database"
     else:
-        # If it doesn't exist, initialize with an empty list
+        # If the json file does not exist, it will create a new one
         data = {"user": []}
         users = data["user"]
 
-    # Append the new user to the list
+    # This appends the new user to the list
     users.append(new_user)
 
-    # Write the updated data back to the file
+    # The below line writes the updated data back to the file
     with open(file_path, "w") as user_file:
         json.dump(data, user_file, indent=4)
 
@@ -76,24 +76,26 @@ def write_user(new_user):
 
 """ The weird line used below with the next() is called a generator expression which 
     loops through the read database that is users and checks if the database contains
-    the requested username.
+    the requested email.
     source: https://www.geeksforgeeks.org/generator-expressions/
     
     next() function returns the next item in an iterable
     source: https://docs.python.org/3/library/functions.html#next"""
 
-def check_username(username):
-    users = read_user()
+def check_email(email):
+    users = read_user().get("user", [])  # this line tries to read the "user" database and in the case it doen't exist it will create a new list
+    email = email.lower()  # turning the email argument to lowercase letter
+
     for user in users:
-        if user == username:
+        if user["email"].lower() == email:  # check if the the result of turning the stored email and the passed email have the same value
             return True
     return False
     
-def check_password(input_password, username):
+def check_password(input_password, email):
     users = read_user()
     for user in users:
         
-        if user == username:
+        if user == email:
             user_password = (user["password"] == input_password)
             if user_password:
                 return True
@@ -113,21 +115,21 @@ def check_password(input_password, username):
 def login():
     # clear the previous session
     session.clear()
-    # check if the username is provided, if not prompt the user to input it
+    # check if the email is provided, if not prompt the user to input it
     if request.method == "POST":
-        username = request.form.get("username")
+        email = request.form.get("email")
         password = request.form.get("password")
         
-        if not username:
-            flash("Must Enter Username")
+        if not email:
+            flash("Must Enter Email")
             return render_template("login.html")
         elif not password:
             flash("Must Entere Password")
             return render_template("login.html")
         
-        user = check_username(username)
+        user = check_email(email)
         if user == False:
-            flash("Username does not exist!")
+            flash("email does not exist!")
             return render_template("login.html")
         
         checked_password = check_password(password)
@@ -135,7 +137,7 @@ def login():
             flash("Wrong password!")
             return render_template("login.html")
         
-        session["username"] = user["username"]
+        session["email"] = user["email"]
         return redirect("/")
     
     return render_template("login.html")
@@ -147,24 +149,22 @@ def register():
     
     if request.method == "POST":
         email = request.form.get("email")
-        username = request.form.get("username")
         password = request.form.get("password")
         account_type = request.form.get("account_type")
         # idk if I should compare the password and the confirm password here or somewhere else
         
-        checked_username = check_username(username)
-        if checked_username == False:
+        checked_email = check_email(email)
+        if checked_email == False:
             user_data = {
-                "username": username,
-                "password": password,
                 "email": email,
+                "password": password,
                 "account_type": account_type
                 }
             write_user(user_data)
-            session["username"] = user_data["username"]
+            session["email"] = user_data["email"]
             return redirect("/")
         
-        return "Username already exists, choose a different username."
+        return "email already exists, login instead."
     
     return render_template("register.html")
 
