@@ -61,21 +61,21 @@ p {
     cursor: pointer; 
     border-radius: 50px;
     transition: background-color 0.3s; /* Sets a timer for the transition so that its smoother */
- }
- /* Changes the background colour of buttons when they are being hovered over */
+}
+/* Changes the background colour of buttons when they are being hovered over */
 .button:hover {
     background-color: rgba(9,81,121,1);
- }
- /* Sets the default style for boxes */
+}
+/* Sets the default style for boxes */
 
- .boxStyle{
+.boxStyle{
     display: flex; /* Sets the box to a flex box */
     background-color: #FFFFFF; /* Sets the background colour to white */
     border: 0.25vw solid #000000; /* Sets border colour to black */
     padding: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 6px; /* Sets the corners of the box to be rounded */
- }
+}
  /* This removes the underline and sets the font to white */
 a {
     color: #FFFFFF;
