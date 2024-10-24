@@ -1,7 +1,7 @@
-from flask import Flask, redirect, render_template, request, flash
+from flask import Flask, redirect, render_template, request, flash, session
 from flask_session import Session
 import json
-
+import os
 # might need flask_session library and session module
 app = Flask(__name__)
 
@@ -40,9 +40,39 @@ def write_quiz(data):
     with open(quiz, "w") as quiz_file:
         json.dump(data, quiz_file, indent=4)
 
-def write_user(data):
-    with open(user, "w") as user_file:
+
+def write_user(new_user):
+    file_path = "data/user.json"
+    
+    # Check if the database file exists
+    if os.path.exists(file_path):
+        with open(file_path, "r") as read_file:
+            # Load existing data
+            data = json.load(read_file)
+            
+            """ This line ensures that the json file is a dictionary first, 
+            then if that dictionary has an element of "user", and finall
+            if the "user" element is list
+            Source for isinstance(): https://www.w3schools.com/python/ref_func_isinstance.asp"""
+            
+            if isinstance(data, dict) and "user" in data and isinstance(data["user"], list):
+                users = data["user"]
+            else:
+                return "Error sending over data to the database"
+    else:
+        # If it doesn't exist, initialize with an empty list
+        data = {"user": []}
+        users = data["user"]
+
+    # Append the new user to the list
+    users.append(new_user)
+
+    # Write the updated data back to the file
+    with open(file_path, "w") as user_file:
         json.dump(data, user_file, indent=4)
+
+    return "User added successfully!"
+
 
 """ The weird line used below with the next() is called a generator expression which 
     loops through the read database that is users and checks if the database contains
@@ -54,26 +84,32 @@ def write_user(data):
 
 def check_username(username):
     users = read_user()
-    user = next((u for u in users if u["username"] == username), None)
-    if user == None:
-        return False
+    for user in users:
+        if user == username:
+            return True
+    return False
     
 def check_password(input_password, username):
     users = read_user()
-    user = next((u for u in users if u["username"] == username), None)
-    if user != None:
-        user_password = (user["password"] == input_password)
-        if user_password:
-            return True
+    for user in users:
+        
+        if user == username:
+            user_password = (user["password"] == input_password)
+            if user_password:
+                return True
         return False
     return "Error finding password in database"
 
 
-@app.route("/")
-def index():
-    return render_template("homePage.html")
+# @app.route("/")
+# def index():
+#     return render_template("homePage.html")
 
-@app.route("/login")
+# @app.route("/homePage")
+# def homePage():
+#     redirect("")
+
+@app.route("/login", methods=["POST", "GET"])
 def login():
     # clear the previous session
     session.clear()
@@ -83,27 +119,33 @@ def login():
         password = request.form.get("password")
         
         if not username:
-            return "Must Enter Username"
+            flash("Must Enter Username")
+            return render_template("login.html")
         elif not password:
-            return "Must Entere Password"
+            flash("Must Entere Password")
+            return render_template("login.html")
         
         user = check_username(username)
         if user == False:
-            return "Username does not exist!"
+            flash("Username does not exist!")
+            return render_template("login.html")
         
         checked_password = check_password(password)
         if checked_password == False:
-            return "Wrong password!"
+            flash("Wrong password!")
+            return render_template("login.html")
         
         session["username"] = user["username"]
         return redirect("/")
-    return redirect("login.html")
+    
+    return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register", methods=["POST", "GET"])
+@app.route("/register.html", methods=["POST", "GET"])
 def register():
     session.clear()
     
-    if request.method == "Post":
+    if request.method == "POST":
         email = request.form.get("email")
         username = request.form.get("username")
         password = request.form.get("password")
@@ -112,14 +154,19 @@ def register():
         
         checked_username = check_username(username)
         if checked_username == False:
-            user = write_user()
-            user.append({"username": username, "password": password, "email": email, "account_type": account_type})
-            session["username"] = user["username"]
+            user_data = {
+                "username": username,
+                "password": password,
+                "email": email,
+                "account_type": account_type
+                }
+            write_user(user_data)
+            session["username"] = user_data["username"]
             return redirect("/")
         
         return "Username already exists, choose a different username."
     
-    return redirect("regist.html")
+    return render_template("register.html")
 
 @app.route("/logout")
 def logout():
