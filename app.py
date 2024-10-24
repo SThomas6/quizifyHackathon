@@ -5,7 +5,7 @@ import json
 # might need flask_session library and session module
 app = Flask(__name__)
 
-# This section is to keep track of who is signed in
+# This section is to keep track of who is signed in###
 # The below line makes sure that the session is not forever, it will last until the web-browser is closed.
 app.config["SESSION_PERMANENT"] = False
 
