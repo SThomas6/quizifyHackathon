@@ -10,13 +10,7 @@
     </head>
     <!--                                                                                                                               TO BE DELETED AND DONE PROPERLY-->
     <nav class="navStyle fade-in"> <!-- Calls the class style and fade in so that they are implemented -->
-        <a href="homePage.html">
-            <img src="../static/images/logo.webp" alt="Quizify logo" class="logo boxStyle">
-        </a> <!-- Link to the homepage -->
-        <a href="createQuiz.html">Create Quiz</a><!-- Link to the Create Quiz page -->
-        <a href="quizList.html">Quiz List</a><!-- Link to the homepage -->
-        <a href="createAccount.html">Create account</a><!-- Link to the Create Account page -->
-        <a href="LogIn.html">Log in</a><!-- Link to the HomePage -->
+        {% include 'navBar.html' %}
     </nav>
     <!--                                                                                                                               TO BE DELETED AND DONE PROPERLY-->
     <body class="style">
@@ -34,5 +28,9 @@
             <a class="homePageButton" href="quizList.html">Open Quizzez</a><br> <!-- Link to the Quiz List apage -->
         </main>
     </body>
+
+    <div>
+        {% include 'footer.html' %}
+    </div>
 </html>
 </DOCTYPE>
