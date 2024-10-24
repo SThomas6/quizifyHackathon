@@ -52,21 +52,22 @@ p {
     margin-bottom: 15px;
 }
 /* Sets all button elements to the following: */
-button {
+.button {
     background-color: rgba(0,212,255,1); /* Sets the background of buttons to a light blue */
     color: #FFFFFF; /* Sets the font within all buttons to white */
     padding: 10px 20px;
     border: 0.15vw solid #000000; /* Sets border colour to black */
     font-size: 16px;
     cursor: pointer; 
-    border-radius: 5px;
+    border-radius: 50px;
     transition: background-color 0.3s; /* Sets a timer for the transition so that its smoother */
  }
  /* Changes the background colour of buttons when they are being hovered over */
-button:hover {
+.button:hover {
     background-color: rgba(9,81,121,1);
  }
  /* Sets the default style for boxes */
+
  .boxStyle{
     display: flex; /* Sets the box to a flex box */
     background-color: #FFFFFF; /* Sets the background colour to white */
