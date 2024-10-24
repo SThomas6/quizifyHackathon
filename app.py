@@ -16,7 +16,6 @@ app.config["SESSION_TYPE"] = "filesystem"
 # This passes the app to the session
 Session(app)
 
-# (experimental)
 quizDatabase = "data/quiz.json"
 userDatabase = "data/user.json"
 
@@ -77,7 +76,6 @@ def writeToDatabase(new_element, database_route, database):
 
     return "User added successfully!"
 
-
 """ The weird line used below with the next() is called a generator expression which 
     loops through the read database that is users and checks if the database contains
     the requested email.
@@ -94,15 +92,6 @@ def check_email(email):
         if user["email"].lower() == email:  # check if the the result of turning the stored email and the passed email have the same value
             return True
     return False
-    
-# def check_password(input_password, email):
-#     users = read_user()
-#     for user in users:
-#         if user == email:
-#             user_password = (user["password"] == input_password)
-#             if user_password:
-#                 return True
-#     return False
 
 def check_password(password, email):
     users = read_user().get("user", [])
@@ -114,16 +103,6 @@ def check_password(password, email):
             if user["password"] == password:
                 return True
     return False
-
-""" The server needs to receive t"""
-
-# @app.route("/")
-# def index():
-#     return render_template("homePage.html")
-
-# @app.route("/homePage")
-# def homePage():
-#     render_template("homePage.html")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -191,19 +170,27 @@ def logout():
 
 def rank_quiz(category):
     # establish a connection to the database
+    try:
+        
+        with open(quizDatabaseVar, 'r') as quiz_file:
+            return json.load(quiz_file)
+        
+        quizzesList = []
+        
+        for quiz in database["quiz"].items():
+            if quiz["category"].lower() == category.lower():
+                quizzesList.append({
+                    "Title": quiz["quizTitleInput"],
+                    "Description": quiz["quizDescriptionInput"],
+                    "Category": quiz["categoryInput"],
+                    "Question": quiz["questionTitleInput"]
+                })
+                
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
     # based on the argument passed to this function query the database
     # store the titles of the 
     return "To-do"
-
-# # Redirecting user to the termsAndConditionsPage.html
-# @app.route("/terms-and-conditions")
-# def terms_and_conditions():
-#     return render_template("termsAndConditionsPage.html")
-
-# # redirecting user to the privacyPolicyPage.html file
-# @app.route("/privacy-Policy")
-# def privacy_policy():
-#     return render_template("privacyPolicyPage.html")
 
 # Subscribing news letters
 @app.route("/subscribe", methods=["POST"])
