@@ -1,38 +1,3 @@
-
-
-.logoImg{
-    overflow: hidden;   /*This prevents the logo strikethrough from going down to a new line*/
-    text-align: center; /*by hiding the overflow completely, this means I can simply give the line width 50% on either side*/
-    padding: 0%;
-    margin: 0%;
-    border: 0%;
-}
-
-.logoImg img{  /*Setting the size of the logo image*/
-    width: 30px;
-    height: 30px;
-}
-
-.logoImg::before, .logoImg::after{   /*Creates a black line either side of the Quizify logo (before, after)*/
-    background-color: #000;
-    content: "";
-    display: inline-block;
-    height: 1px;
-    position: relative;  /*Allows moving of the strikethrough within the "logoText" inline block*/
-    vertical-align: middle;  /*Centers the strikethrough vertically*/
-    width: 50%;   /*makes each part of the strikethrough half the width of the page*/
-}
-
-.logoImg::before{
-    right: 0.5em;  /*Creates a small gap to the right of the line so it isn't touching the logo*/
-    margin-left: -50%;  /*Moves the line so that it is to the left of the point it is centered about*/
-}
-
-.logoImg::after{
-    left: 0.5em;  /*does same job but for other side*/
-    margin-right: -50%;
-}
-
 .footFlex{
     display: flex;
     justify-content: space-around;
