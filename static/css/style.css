@@ -13,9 +13,10 @@ body {
     background-color: #FFFFFF; /* Sets the background colour to white */
     border: 0.25vw solid #000000; /* Sets border colour to black */
     padding: 10px;
-    margin: 70px auto 6vw auto;
+    margin: 40px auto 6vw auto;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
+    
 }
 .primaryColour {
     background-color: rgba(0,212,255,1); /* Sets the primary colour */

@@ -9,7 +9,7 @@ def create_account():
 
 
 
-        return render_template("createaccount.html")
+        return render_template("createAccount.html")
 
     if request.method =='POST':
 

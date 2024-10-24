@@ -9,6 +9,7 @@ body{
     font-size: 65px;
     border: 10px;
     border-bottom: white;
+    
 }
 .form{
     color: black;
@@ -17,6 +18,8 @@ body{
     border-radius: 20px;
     text-align: center;
     margin: auto;
+    margin: 20px auto 20px auto;
+    
 
 }
 .form input{
@@ -26,7 +29,10 @@ body{
     border-radius: 4px;
     font-size: 15px;
     color: black;
-    width: 70%;
+    width: 80%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
     
 }
 .mybtn{
@@ -39,7 +45,7 @@ body{
     margin: 4px 2px;
     cursor: pointer;
 }
-.terms_con{
+.termsCon{
     color: blue;
 }
 
