@@ -6,6 +6,34 @@ import json
 
 app = Flask(__name__)
 
+@app.route("/homePage")
+def homePage():
+    return render_template("homePage.html")
+
+@app.route("/createQuiz")
+def createQuiz():
+    return render_template("createQuiz.html")
+
+@app.route("/quizList")
+def quizList():
+    return render_template("quizList.html")
+
+@app.route("/createAccount")
+def createAccount():
+    return render_template("createAccount.html")
+
+@app.route("/loginPage")
+def loginPage():
+    return render_template("login.html")
+
+@app.route("/termsAndConditions")
+def termsAndConditions():
+    return render_template("termsAndConditions.html")
+
+@app.route("/privacyPolicy")
+def privacyPolicy():
+    return render_template("privacyPolicy.html") 
+
 # This section is to keep track of who is signed in
 # The below line makes sure that the session is not forever, it will last until the web-browser is closed.
 # app.config["SESSION_PERMANENT"] = False

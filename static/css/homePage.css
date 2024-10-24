@@ -18,8 +18,9 @@
  .homePageButton:hover {
     background-color: rgba(9,81,121,1);
  }
- h1 {
+ .heading1 {
     font-size: 70px;
+    color: #000000;
  }
  .image {
     min-width: 45vw;
