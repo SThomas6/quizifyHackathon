@@ -106,3 +106,7 @@ def rank_quiz(category):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
