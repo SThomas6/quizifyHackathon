@@ -10,7 +10,7 @@
     </head>
     <!--put the navbar here somewhere-->
     <nav>
-        {% include 'navBar.html' %}   <!--Inserting the navbar template-->
+        <!--Inserting the navbar template-->
     </nav>
 
     <body>
@@ -18,71 +18,79 @@
             <h1 class="createQuizTitle">
                 Create quiz
             </h1>
-            <section class='descriptionDiv'>
-                <!--Quiz title input-->
-                <section>
-                    <input class="quizTitle" type="text" placeholder="Quiz title">
+            <form action="/submit-quiz" method="POST">
+                <section class='descriptionDiv'>
+                    <!--Quiz title input-->
+                    <section>
+                        <input class="quizTitle" type="text" placeholder="Quiz title" name="quizTitleInput">
+                    </section>
+                    <!--description input--> 
+                    <textarea class='largeInput' placeholder='Enter description here' type = 'text' name="quizDescriptionInput" ></textarea>
+                    <section class="categorySelectionSection">
+                        <!--label for drop down menu category-->
+                        <label for = 'categoryInput'>Category:</label>
+
+                        <!--drop down menu-->
+                        <select required name = 'categoryInput' >
+                            <option value="" disabled selected hidden>Select category</option>
+                            <option value='generalKnowledge'>General knowledge</option>
+                            <option value='scienceAndNature'>Science and nature</option>
+                            <option value='history'>History</option>
+                            <option value='popCulture'>Pop culture</option>
+                            <option value='geography'>Geography</option>
+                        </select>
+                    </section>    
                 </section>
-                <!--description input--> 
-                <textarea class='largeInput' placeholder='Enter description here' type = 'text'></textarea>
-                <section class="categorySelectionSection">
-                    <!--label for drop down menu category-->
-                    <label for = 'category'>Category:</label>
 
-                    <!--drop down menu-->
-                    <select required name = 'category' >
-                        <option value="" disabled selected hidden>Select category</option>
-                        <option value='generalKnowledge'>General knowledge</option>
-                        <option value='scienceAndNature'>Science and nature</option>
-                        <option value='history'>History</option>
-                        <option value='popCulture'>Pop culture</option>
-                        <option value='geography'>Geography</option>
-                    </select>
-                </section>    
-            </section>
+                <!--add question section-->
+                <section class="addQuestion">
+                    <!--Question title input box-->
+                        <input class='questionTitle' type="text" placeholder="Question title" name="questionTitleInput">
 
-            <!--add question section-->
-            <section class="addQuestion">
-                <!--Question title input box-->
-                    <input class='questionTitle' type="text" placeholder="Question title">
-
-                <!--List of possible answers for the question-->
-                <section class="answerBox">
-                    <ul>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                    </ul>
-                    <!--Add option button to add options to the question-->
-                    <button class="addOptionButton">
-                        <span class="icon">+</span>
-                        <span class="text">Add option</span>
-                    </button>
+                    <!--List of possible answers for the question-->
+                    <section class="answerBox">
+                        <ul>
+                            <li>
+                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer1Input">
+                                <input type="checkbox" name="correctAnswer1">
+                            </li>
+                            <li>
+                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer2Input">
+                                <input type="checkbox" name="correctAnswer2">
+                            </li>
+                            <li>
+                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer3Input">
+                                <input type="checkbox" name="correctAnswer3">
+                            </li>
+                        </ul>
+                        <!--Add option button to add options to the question-->
+                        <button class="addOptionButton">
+                            <span class="icon">+</span>
+                            <span class="text">Add option</span>
+                        </button>
+                    </section>
                 </section>
-            </section>
 
-            <!--Add question button-->
-            <button class="button addQuestionButton">
-                <img src="/static/plusIcon.png" alt="Add" class="icon">
-                <span class="text">Add question</span>
-            </button>
+                <!--Add question button-->
+                <button class="button addQuestionButton">
+                    <img src="/static/plusIcon.png" alt="Add" class="icon">
+                    <span class="text">Add question</span>
+                </button>
 
-            <div class="submitButtonDiv">
-                <input class='button submitButton' type="submit" value="Submit">
-            </div>
+                <div class="submitButtonDiv">
+                    <input class='button submitButton' type="submit" value="Submit">
+                </div>
+            </form>
+
+
+
+
+
+
         </main>
     </body>
 
     <footer>
-        {% include 'footer.html' %}  <!--Inserting the footer template-->
+        <!--Inserting the footer template-->
     </footer>
 </html>
