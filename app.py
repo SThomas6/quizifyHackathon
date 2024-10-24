@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, flash, session
+from flask import Flask, redirect, render_template, request, flash, session, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 import json
@@ -123,7 +123,7 @@ def check_password(password, email):
 
 # @app.route("/homePage")
 # def homePage():
-#     redirect("")
+#     render_template("homePage.html")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -151,7 +151,7 @@ def login():
             # Use check_password_hash to compare input password and stored password hash
             if check_password(password, email) == True:
                 session["email"] = email
-                return redirect("/")
+                return redirect(url_for("homePage"))
             else:
                 flash("Wrong Password")
                 return render_template("login.html")
@@ -178,7 +178,7 @@ def register():
                 }
             writeToDatabase(user_data, userDatabase, userDatabaseVar)
             session["email"] = user_data["email"]
-            return redirect("/")
+            return redirect(url_for("homePage"))
         
         return "email already exists, login instead."
     
