@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, flash, session
 from flask_session import Session
+from werkzeug.security import check_password_hash, generate_password_hash
 import json
 import os
 # might need flask_session library and session module
@@ -25,7 +26,7 @@ userDatabaseVar = "user"
 # For reading data from the database (experimental)
 def read_quiz():
     try:
-        with open(quiz, 'r') as quiz_file:
+        with open(quizDatabaseVar, 'r') as quiz_file:
             return json.load(quiz_file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -94,17 +95,27 @@ def check_email(email):
             return True
     return False
     
-def check_password(input_password, email):
-    users = read_user()
-    for user in users:
-        
-        if user == email:
-            user_password = (user["password"] == input_password)
-            if user_password:
-                return True
-        return False
-    return "Error finding password in database"
+# def check_password(input_password, email):
+#     users = read_user()
+#     for user in users:
+#         if user == email:
+#             user_password = (user["password"] == input_password)
+#             if user_password:
+#                 return True
+#     return False
 
+def check_password(password, email):
+    users = read_user().get("user", [])
+    
+    email = email.lower()  # turning the email argument to lowercase letter
+
+    for user in users:
+        if user["email"].lower() == email:  # check if the the result of turning the stored email and the passed email have the same value
+            if user["password"] == password:
+                return True
+    return False
+
+""" The server needs to receive t"""
 
 # @app.route("/")
 # def index():
@@ -116,33 +127,36 @@ def check_password(input_password, email):
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    # clear the previous session
+    
     session.clear()
-    # check if the email is provided, if not prompt the user to input it
+    
     if request.method == "POST":
         email = request.form.get("email")
-        password = request.form.get("password")
+        password = request.form.get("password")  # Don't hash this here
         
         if not email:
             flash("Must Enter Email")
             return render_template("login.html")
+        
         elif not password:
-            flash("Must Entere Password")
+            flash("Must Enter Password")
             return render_template("login.html")
         
         user = check_email(email)
-        if user == False:
-            flash("email does not exist!")
+        if not user:
+            flash("Email does not exist!")
             return render_template("login.html")
         
-        checked_password = check_password(password, email)
-        if checked_password == False:
-            flash("Wrong password!")
-            return render_template("login.html")
-        
-        session["email"] = user["email"]
-        return redirect("/")
+        else:
+            # Use check_password_hash to compare input password and stored password hash
+            if check_password(password, email) == True:
+                session["email"] = email
+                return redirect("/")
+            else:
+                flash("Wrong Password")
+                return render_template("login.html")
     return render_template("login.html")
+
 
 @app.route("/register", methods=["POST", "GET"])
 @app.route("/register.html", methods=["POST", "GET"])
@@ -162,7 +176,7 @@ def register():
                 "password": password,
                 "account_type": account_type
                 }
-            writeToDatabase(user_data)
+            writeToDatabase(user_data, userDatabase, userDatabaseVar)
             session["email"] = user_data["email"]
             return redirect("/")
         
