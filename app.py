@@ -162,6 +162,7 @@ def rank_quiz(category):
 def terms_and_conditions():
     return render_template("termsAndConditionsPage.html")
 
+
 # redirecting user to the privacyPolicyPage.html file
 @app.route("/privacy-Policy")
 def privacy_policy():
@@ -179,5 +180,74 @@ def subscribe():
         return email
     else:
         return flash("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
+
+
+@app.route("/create-quiz")
+def create_quiz():
+    return render_template('createQuiz.html')
+
+#submit quiz function to collect the create quiz data
+@app.route('/submit-quiz', methods=['POST'])
+def submit_quiz():
+    #getting the data from the form and putting it into a variable
+    quizTitle = request.form.get('quizTitleInput')
+    quizDescription = request.form.get('quizDescriptionInput')
+    selectedCategory = request.form.get('categoryInput')
+    questionTitle = request.form.get('questionTitleInput')
+
+    #Getting the answers from teh form and putting them into a variable
+    questionAnswer1 = request.form.get('answer1Input')
+    questionAnswer2 = request.form.get('answer2Input')
+    questionAnswer3 = request.form.get('answer3Input')
+
+    #Getting the value of the checkbox from the form and checking if the value is true or false
+    correctAnswer1 = True if request.form.get('correctAnswer1') else False
+    correctAnswer2 = True if request.form.get('correctAnswer2') else False
+    correctAnswer3 = True if request.form.get('correctAnswer3') else False
+
+
+
+    #printing the data to the console
+    print(f"Quiz Title: {questionTitle}")
+    print(f"Description: {quizDescription}")
+    print(f"Category: {selectedCategory}")
+    print(f"Question Title: {questionTitle}")
+
+    #Getting the answers that have been submitted
+    print(f"Question Answer 1: {questionAnswer1}")
+    print(f"Question Answer 2: {questionAnswer2}")
+    print(f"Question Answer 3: {questionAnswer3}")
+
+    #Getting the boolean value of the checkbox to check which answer is correct
+    print(f"Correct answer 1: {correctAnswer1}")
+    print(f"Correct answer 2: {correctAnswer2}")
+    print(f"Correct answer 3: {correctAnswer3}")
+
+    # returning inputs
+    return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
+
+""" Database Structure:
+        - User registry:
+            - Columns:
+                - id - auto incrmented (Has to be unique) (Unique id does not exist in json, I think?! so probably doesn't apply)
+                - username (Has to be unique)
+                - password
+                - status of account (user or moderator)
+                - id of quizzes taken (taken from the Quizzes database)
+                - scores and results for each quiz
+        
+        - Quizzes:
+            - Columns:
+                - id - autoincrement Unique (Unique id does not exist in json, I think?! so probably doesn't apply)
+                - title 
+                - description
+                - category
+                - difficulty
+"""
+
+# def time_limit():
+
+# def 
+
 if __name__ == "__main__":
     app.run(debug=True)
