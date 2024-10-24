@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 from flask import Flask, redirect, render_template, request, flash, session
+=======
+from flask import Flask, redirect, render_template, request, flash
+>>>>>>> bc530dfd1ad7c5e70302d5a213774a4e23e6fd3f
 from flask_session import Session
 import json
 
 # might need flask_session library and session module
 app = Flask(__name__)
 
+<<<<<<< HEAD
 
 # Testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 @app.route("/test-nav")
@@ -15,6 +20,8 @@ def test_nav():
 
 
 
+=======
+>>>>>>> bc530dfd1ad7c5e70302d5a213774a4e23e6fd3f
 # This section is to keep track of who is signed in
 # The below line makes sure that the session is not forever, it will last until the web-browser is closed.
 app.config["SESSION_PERMANENT"] = False
@@ -83,7 +90,11 @@ def check_password(input_password, username):
 def index():
     return render_template("homePage.html")
 
+<<<<<<< HEAD
 @app.route("/login", methods=["POST","GET"])
+=======
+@app.route("/login")
+>>>>>>> bc530dfd1ad7c5e70302d5a213774a4e23e6fd3f
 def login():
     # clear the previous session
     session.clear()
@@ -107,7 +118,11 @@ def login():
         
         session["username"] = user["username"]
         return redirect("/")
+<<<<<<< HEAD
     return render_template("login.html")
+=======
+    return redirect("login.html")
+>>>>>>> bc530dfd1ad7c5e70302d5a213774a4e23e6fd3f
 
 @app.route("/register")
 def register():
