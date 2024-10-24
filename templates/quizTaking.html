@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--SEO optimisation-->
+        <meta charset="UTF-8">
+        <meta name = "viewport" content = 'width=device-width, initial scale = 1.0'>
+        <link rel="stylesheet" href="/static/css/quizTaking.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <title>Create quiz</title>
+    </head>
+    <nav> <!-- Nav bar-->
+        {% include 'navBar.html' %}
+    </nav>
+    <body>
+        <main class="layout content">
+            <h1 class="takingQuizTitle"> Quiz </h1>
+                <section class='descriptionDiv'>
+                    <!--Quiz title-->
+                    <section>
+                        <label class="quizTitle" type="text" placeholder="Quiz title" name="quizTitle"></label>
+                    </section>
+                    <!--description label--> 
+                    <label class='description boxStyle' placeholder='description here' type = 'text' name="quizDescription" ></label>
+                    <section class="categorySelectionSection">
+                        <!--label for drop down menu category-->
+                        <label>Category:</label>
+                        <label name = 'category'>"Category"</label>
+                    </section>    
+                </section>
+                <!--add question section-->
+                <section class="addQuestion">
+                    <!--Question title label box-->
+                        <label class='questionTitle' type="text" placeholder="Question title" name="questionTitlelabel">Question</label>
+
+                    <!--List of possible answers for the question-->
+                    <section class="answerBox">
+                        <ul>
+                            <li>
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer1label">
+                                <input class ="checkbox" type="checkbox" name="correctAnswer1">
+                            </li>
+                            <li>
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer2label">
+                                <input class ="checkbox" type="checkbox" name="correctAnswer2">
+                            </li>
+                            <li>
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer3label">
+                                <input class ="checkbox" type="checkbox" name="correctAnswer3">
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!--Add question button-->
+                <button class="button submitButton">
+                    <span class="text">Submit</span>
+                </button>
+
+                <div>
+                    <label class='button submitButton' type="submit" value="Submit">
+                </div>
+        </main>
+    </body>
+
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</html>
