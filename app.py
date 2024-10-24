@@ -97,11 +97,7 @@ def login():
         
         session["username"] = user["username"]
         return redirect("/")
-<<<<<<< HEAD
-    return render_template("login.html")
-=======
     return redirect("login.html")
->>>>>>> bc530dfd1ad7c5e70302d5a213774a4e23e6fd3f
 
 @app.route("/register")
 def register():
