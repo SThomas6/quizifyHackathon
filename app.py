@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request, flash
 from flask_session import Session
 import json
 
@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return redirect("/Home.html")
+    return render_template("homePage.html")
 
 @app.route("/login")
 def login():
@@ -85,10 +85,34 @@ def rank_quiz(category):
     # store the titles of the 
     return "To-do"
 
+# Redirecting user to the termsAndConditionsPage.html
+@app.route("/terms-and-conditions")
+def terms_and_conditions():
+    return render_template("termsAndConditionsPage.html")
+
+# redirecting user to the privacyPolicyPage.html file
+@app.route("/privacy-Policy")
+def privacy_policy():
+    return render_template("privacyPolicyPage.html")
+
+
+# Subscribing news letters
+@app.route("/subscribe", methods=["POST"])
+def subscribe():
+    email = request.form.get('email')
+    consent = request.form.get('consent')
+    
+    if email and consent: # this means if an email is inputed and the consent checkbox is ticked
+        # code to store the email in a database (probably a dedicated table for the news-letter)
+        # for now let's show it in the console for debugging, but ideally you would flash a success message
+        return email
+    else:
+        return flash("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
+
 """ Database Structure:
         - User registry:
             - Columns:
-                - id - auto incrmented (Has to be unique)
+                - id - auto incrmented (Has to be unique) (Unique id does not exist in json, I think?! so probably doesn't apply)
                 - username (Has to be unique)
                 - password
                 - status of account (user or moderator)
@@ -97,12 +121,16 @@ def rank_quiz(category):
         
         - Quizzes:
             - Columns:
-                - id - autoincrement Unique
+                - id - autoincrement Unique (Unique id does not exist in json, I think?! so probably doesn't apply)
                 - title 
                 - description
                 - category
                 - difficulty
 """
+
+# def time_limit():
+
+# def 
 
 if __name__ == "__main__":
     app.run(debug=True)
