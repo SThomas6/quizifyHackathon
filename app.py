@@ -1,8 +1,7 @@
-from flask import Flask, redirect, render_template, request, flash, session
+from flask import Flask, redirect, render_template, request, flash
 from flask_session import Session
-from werkzeug.security import check_password_hash, generate_password_hash
 import json
-import os
+
 # might need flask_session library and session module
 app = Flask(__name__)
 
@@ -17,23 +16,20 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # (experimental)
-quizDatabase = "data/quiz.json"
-userDatabase = "data/user.json"
-
-quizDatabaseVar = "quiz"
-userDatabaseVar = "user"
+quiz = "data/quiz.json"
+user = "data/user.json"
 
 # For reading data from the database (experimental)
 def read_quiz():
     try:
-        with open(quizDatabaseVar, 'r') as quiz_file:
+        with open(quiz, 'r') as quiz_file:
             return json.load(quiz_file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     
 def read_user():
     try:
-        with open(userDatabase, 'r') as user_file:
+        with open(user, 'r') as user_file:
             return json.load(user_file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -41,148 +37,89 @@ def read_user():
 
 # For writing data to the database (experimental)
 def write_quiz(data):
-    with open(quizDatabase, "w") as quiz_file:
+    with open(quiz, "w") as quiz_file:
         json.dump(data, quiz_file, indent=4)
 
-
-def writeToDatabase(new_element, database_route, database):
-    file_path = database_route
-    
-    # This line checks if the json file exists
-    if os.path.exists(file_path):
-        with open(file_path, "r") as read_file:
-            # Load existing data
-            data = json.load(read_file)
-            
-            """ This line ensures that the json file is a dictionary first, 
-            then if that dictionary has an element of the database (either user or quiz), 
-            and finall it checks whether the element is list.
-            Source for isinstance(): https://www.w3schools.com/python/ref_func_isinstance.asp"""
-            
-            if isinstance(data, dict) and database in data and isinstance(data[database], list):
-                users = data["user"]
-            else:
-                return "Error sending over data to the database"
-    else:
-        # If the json file does not exist, it will create a new one
-        data = {"user": []}
-        users = data["user"]
-
-    # This appends the new user to the list
-    users.append(new_element)
-
-    # The below line writes the updated data back to the file
-    with open(file_path, "w") as user_file:
+def write_user(data):
+    with open(user, "w") as user_file:
         json.dump(data, user_file, indent=4)
-
-    return "User added successfully!"
-
 
 """ The weird line used below with the next() is called a generator expression which 
     loops through the read database that is users and checks if the database contains
-    the requested email.
+    the requested username.
     source: https://www.geeksforgeeks.org/generator-expressions/
     
     next() function returns the next item in an iterable
     source: https://docs.python.org/3/library/functions.html#next"""
 
-def check_email(email):
-    users = read_user().get("user", [])  # this line tries to read the "user" database and in the case it doen't exist it will create a new list
-    email = email.lower()  # turning the email argument to lowercase letter
-
-    for user in users:
-        if user["email"].lower() == email:  # check if the the result of turning the stored email and the passed email have the same value
+def check_username(username):
+    users = read_user()
+    user = next((u for u in users if u["username"] == username), None)
+    if user == None:
+        return False
+    
+def check_password(input_password, username):
+    users = read_user()
+    user = next((u for u in users if u["username"] == username), None)
+    if user != None:
+        user_password = (user["password"] == input_password)
+        if user_password:
             return True
-    return False
-    
-# def check_password(input_password, email):
-#     users = read_user()
-#     for user in users:
-#         if user == email:
-#             user_password = (user["password"] == input_password)
-#             if user_password:
-#                 return True
-#     return False
+        return False
+    return "Error finding password in database"
 
-def check_password(password, email):
-    users = read_user().get("user", [])
-    
-    email = email.lower()  # turning the email argument to lowercase letter
 
-    for user in users:
-        if user["email"].lower() == email:  # check if the the result of turning the stored email and the passed email have the same value
-            if user["password"] == password:
-                return True
-    return False
+@app.route("/")
+def index():
+    return render_template("homePage.html")
 
-""" The server needs to receive t"""
-
-# @app.route("/")
-# def index():
-#     return render_template("homePage.html")
-
-# @app.route("/homePage")
-# def homePage():
-#     redirect("")
-
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/login")
 def login():
-    
+    # clear the previous session
     session.clear()
-    
+    # check if the username is provided, if not prompt the user to input it
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")  # Don't hash this here
+        username = request.form.get("username")
+        password = request.form.get("password")
         
-        if not email:
-            flash("Must Enter Email")
-            return render_template("login.html")
-        
+        if not username:
+            return "Must Enter Username"
         elif not password:
-            flash("Must Enter Password")
-            return render_template("login.html")
+            return "Must Entere Password"
         
-        user = check_email(email)
-        if not user:
-            flash("Email does not exist!")
-            return render_template("login.html")
+        user = check_username(username)
+        if user == False:
+            return "Username does not exist!"
         
-        else:
-            # Use check_password_hash to compare input password and stored password hash
-            if check_password(password, email) == True:
-                session["email"] = user["email"]
-                return redirect("/")
-            else:
-                flash("Wrong Password")
-                return render_template("login.html")
-    return render_template("login.html")
+        checked_password = check_password(password)
+        if checked_password == False:
+            return "Wrong password!"
+        
+        session["username"] = user["username"]
+        return redirect("/")
+    return redirect("login.html")
 
-
-@app.route("/register", methods=["POST", "GET"])
-@app.route("/register.html", methods=["POST", "GET"])
+@app.route("/register")
 def register():
     session.clear()
     
-    if request.method == "POST":
+    if request.method == "Post":
         email = request.form.get("email")
+        username = request.form.get("username")
         password = request.form.get("password")
         account_type = request.form.get("account_type")
         # idk if I should compare the password and the confirm password here or somewhere else
         
-        checked_email = check_email(email)
-        if checked_email == False:
-            user_data = {
-                "email": email,
-                "password": password,
-                "account_type": account_type
-                }
-            writeToDatabase(user_data)
-            session["email"] = user_data["email"]
+        checked_username = check_username(username)
+        if checked_username == False:
+            user = write_user()
+            user.append({"username": username, "password": password, "email": email, "account_type": account_type})
+            session["username"] = user["username"]
             return redirect("/")
         
-        return "email already exists, login instead."
+        return "Username already exists, choose a different username."
     
-    return render_template("register.html")
+    return redirect("regist.html")
 
 @app.route("/logout")
 def logout():
@@ -195,15 +132,16 @@ def rank_quiz(category):
     # store the titles of the 
     return "To-do"
 
-# # Redirecting user to the termsAndConditionsPage.html
-# @app.route("/terms-and-conditions")
-# def terms_and_conditions():
-#     return render_template("termsAndConditionsPage.html")
+# Redirecting user to the termsAndConditionsPage.html
+@app.route("/terms-and-conditions")
+def terms_and_conditions():
+    return render_template("termsAndConditionsPage.html")
 
-# # redirecting user to the privacyPolicyPage.html file
-# @app.route("/privacy-Policy")
-# def privacy_policy():
-#     return render_template("privacyPolicyPage.html")
+
+# redirecting user to the privacyPolicyPage.html file
+@app.route("/privacy-Policy")
+def privacy_policy():
+    return render_template("privacyPolicyPage.html")
 
 # Subscribing news letters
 @app.route("/subscribe", methods=["POST"])
@@ -218,33 +156,6 @@ def subscribe():
     else:
         return flash("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
 
-@app.route("/homePage")
-def homePage():
-    return render_template("homePage.html")
-
-@app.route("/createQuiz")
-def createQuiz():
-    return render_template("createQuiz.html")
-
-@app.route("/quizList")
-def quizList():
-    return render_template("quizList.html")
-
-@app.route("/createAccount")
-def createAccount():
-    return render_template("createAccount.html")
-
-@app.route("/loginPage")
-def loginPage():
-    return render_template("login.html")
-
-@app.route("/termsAndConditions")
-def termsAndConditions():
-    return render_template("termsAndConditions.html")
-
-@app.route("/privacyPolicy")
-def privacyPolicy():
-    return render_template("privacyPolicy.html")
 
 @app.route("/create-quiz")
 def create_quiz():
@@ -270,6 +181,7 @@ def submit_quiz():
     correctAnswer3 = True if request.form.get('correctAnswer3') else False
 
 
+
     #printing the data to the console
     print(f"Quiz Title: {questionTitle}")
     print(f"Description: {quizDescription}")
@@ -288,6 +200,29 @@ def submit_quiz():
 
     # returning inputs
     return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
-    
+
+""" Database Structure:
+        - User registry:
+            - Columns:
+                - id - auto incrmented (Has to be unique) (Unique id does not exist in json, I think?! so probably doesn't apply)
+                - username (Has to be unique)
+                - password
+                - status of account (user or moderator)
+                - id of quizzes taken (taken from the Quizzes database)
+                - scores and results for each quiz
+        
+        - Quizzes:
+            - Columns:
+                - id - autoincrement Unique (Unique id does not exist in json, I think?! so probably doesn't apply)
+                - title 
+                - description
+                - category
+                - difficulty
+"""
+
+# def time_limit():
+
+# def 
+
 if __name__ == "__main__":
     app.run(debug=True)

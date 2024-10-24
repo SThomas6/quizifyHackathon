@@ -12,15 +12,6 @@
     justify-content: space-evenly; /* Sets the contents to be spaced evenly */
     align-items: center;
 }
-.logo {
-    width: 30px;
-    max-width: 30px;
-    height: 30px;
-    max-height: 30px;
-    padding: 0;
-    margin: 0
-    ;
-}
 /* This allows for the navBar to fade in when the webpage is loaded */
 @keyframes fadeIn {
     0% {
