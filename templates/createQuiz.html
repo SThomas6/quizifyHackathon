@@ -4,8 +4,11 @@
         <!--SEO optimisation-->
         <meta charset="UTF-8">
         <meta name = "viewport" content = 'width=device-width, initial scale = 1.0'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="/static/css/createQuiz.css">
         <link rel="stylesheet" href="/static/css/style.css">
+        <script src="/static/javaScript/createQuiz.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Create quiz</title>
     </head>
     <!--put the navbar here somewhere-->
@@ -22,10 +25,10 @@
                 <section class='descriptionDiv'>
                     <!--Quiz title input-->
                     <section>
-                        <input class="quizTitle" type="text" placeholder="Quiz title" name="quizTitleInput">
+                        <input class="quizTitle" type="text" placeholder="Quiz title" name="quizTitleInput" required>
                     </section>
                     <!--description input--> 
-                    <textarea class='largeInput' placeholder='Enter description here' type = 'text' name="quizDescriptionInput" ></textarea>
+                    <textarea class='largeInput' placeholder='Enter description here' type = 'text' name="quizDescriptionInput" required></textarea>
                     <section class="categorySelectionSection">
                         <!--label for drop down menu category-->
                         <label for = 'categoryInput'>Category:</label>
@@ -43,49 +46,40 @@
                 </section>
 
                 <!--add question section-->
-                <section class="addQuestion">
-                    <!--Question title input box-->
-                        <input class='questionTitle' type="text" placeholder="Question title" name="questionTitleInput">
+                <section id="questionsId">
+                    <section id="addQuestionId" class="addQuestion">
+                        <!--Question title input box-->
+                            <input class='questionTitle' type="text" placeholder="Question title" name="questionTitleInput" required>
 
-                    <!--List of possible answers for the question-->
-                    <section class="answerBox">
-                        <ul>
-                            <li>
-                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer1Input">
-                                <input type="checkbox" name="correctAnswer1">
-                            </li>
-                            <li>
-                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer2Input">
-                                <input type="checkbox" name="correctAnswer2">
-                            </li>
-                            <li>
-                                <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer3Input">
-                                <input type="checkbox" name="correctAnswer3">
-                            </li>
-                        </ul>
-                        <!--Add option button to add options to the question-->
-                        <button class="addOptionButton">
-                            <span class="icon">+</span>
-                            <span class="text">Add option</span>
-                        </button>
+                        <!--List of possible answers for the question-->
+                        <section class="answerBox">
+                            <ul id="answerInput">
+                                <li>
+                                    <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer1Input" required>
+                                    <input type="checkbox" name="correctAnswer1">
+                                </li>
+                            </ul>
+                            <!--Add option button to add options to the question-->
+                            <button id="addOptionButtonId"name="addOptionButton" type="button" class="addOptionButton">
+                                <span class="icon">+</span>
+                                <span class="text">Add option</span>
+                            </button>
+                        </section>
                     </section>
                 </section>
 
                 <!--Add question button-->
-                <button class="button addQuestionButton">
+                <button id="addQuestionButtonId" name="addQuestionButton" class="button addQuestionButton" type="button">
                     <img src="/static/plusIcon.png" alt="Add" class="icon">
                     <span class="text">Add question</span>
                 </button>
+
+                
 
                 <div class="submitButtonDiv">
                     <input class='button submitButton' type="submit" value="Submit">
                 </div>
             </form>
-
-
-
-
-
 
         </main>
     </body>

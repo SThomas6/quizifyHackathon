@@ -25,7 +25,7 @@ userDatabaseVar = "user"
 # For reading data from the database (experimental)
 def read_quiz():
     try:
-        with open(quiz, 'r') as quiz_file:
+        with open(quizDatabaseVar, 'r') as quiz_file:
             return json.load(quiz_file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -44,7 +44,7 @@ def write_quiz(data):
         json.dump(data, quiz_file, indent=4)
 
 
-def writeToDatabase(new_element, database_route, database):
+def writeToDatabase(data, database_route, database):
     file_path = database_route
     
     # This line checks if the json file exists
@@ -59,7 +59,7 @@ def writeToDatabase(new_element, database_route, database):
             Source for isinstance(): https://www.w3schools.com/python/ref_func_isinstance.asp"""
             
             if isinstance(data, dict) and database in data and isinstance(data[database], list):
-                users = data["user"]
+                users = data['quiz']
             else:
                 return "Error sending over data to the database"
     else:
@@ -68,7 +68,7 @@ def writeToDatabase(new_element, database_route, database):
         users = data["user"]
 
     # This appends the new user to the list
-    users.append(new_element)
+    users.append(data)
 
     # The below line writes the updated data back to the file
     with open(file_path, "w") as user_file:
@@ -236,6 +236,30 @@ def privacyPolicy():
 def create_quiz():
     return render_template('createQuiz.html')
 
+
+def saveQuiz(quiz_details):
+    file_path = "data/quiz.json"
+
+    if os.path.exists(file_path):
+        with open(file_path, "r") as read_file:
+            data = json.load(read_file)
+
+            if isinstance(data, dict) and "quiz" in data and isinstance(data["quiz"], list):
+                quizzes = data["quiz"]
+            else:
+                return "Error sending over data to the quiz database"
+    else:
+        data = {"quiz": []}
+        quizzes = data["quiz"]
+
+    quizzes.append(quiz_details)
+
+    with open(file_path, "w") as quiz_file:
+        json.dump(data, quiz_file, indent=4)
+
+    return "Quiz was added successfully!"
+
+
 #submit quiz function to collect the create quiz data
 @app.route('/submit-quiz', methods=['POST'])
 def submit_quiz():
@@ -247,13 +271,21 @@ def submit_quiz():
 
     #Getting the answers from teh form and putting them into a variable
     questionAnswer1 = request.form.get('answer1Input')
-    questionAnswer2 = request.form.get('answer2Input')
-    questionAnswer3 = request.form.get('answer3Input')
 
     #Getting the value of the checkbox from the form and checking if the value is true or false
     correctAnswer1 = True if request.form.get('correctAnswer1') else False
-    correctAnswer2 = True if request.form.get('correctAnswer2') else False
-    correctAnswer3 = True if request.form.get('correctAnswer3') else False
+
+
+    quizData={
+        "quizTitle": quizTitle,
+        "quizDescription": quizDescription,
+        "selectedCategory": selectedCategory,
+        "questionTitle": questionTitle,
+        "questionAnswer1": questionAnswer1,
+        "correctAnswer1": correctAnswer1
+        }
+
+    saveQuiz(quizData)
 
 
     #printing the data to the console
@@ -264,16 +296,14 @@ def submit_quiz():
 
     #Getting the answers that have been submitted
     print(f"Question Answer 1: {questionAnswer1}")
-    print(f"Question Answer 2: {questionAnswer2}")
-    print(f"Question Answer 3: {questionAnswer3}")
+
 
     #Getting the boolean value of the checkbox to check which answer is correct
     print(f"Correct answer 1: {correctAnswer1}")
-    print(f"Correct answer 2: {correctAnswer2}")
-    print(f"Correct answer 3: {correctAnswer3}")
+
 
     # returning inputs
-    return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
+    return render_template("quizTaking.html")
     
 if __name__ == "__main__":
     app.run(debug=True)
