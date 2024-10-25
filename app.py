@@ -76,6 +76,39 @@ def writeToDatabase(new_element, database_route, database):
 
     return "User added successfully!"
 
+def writeNewsLetter(email):
+    # Specifies the file path
+    file_path = "data/newsLetter.json"
+
+    # Checks if the json file exists
+    
+    if os.path.exists(file_path):
+        with open(file_path, "r") as read_file:
+            # Load existing data in the database
+            data = json.load(read_file)
+        
+            # Checks if the json file is a dictionary and if email is an element and if email is a list 
+            if isinstance(data, dict) and "email" in data and isinstance(data["email"], list):
+                subs = data["email"]
+            else:
+                return "Error sending over data to the database!"
+    else:
+        # if the json file does not exist, it will create a new one
+        data = {"email": []}
+        subs = data["email"]
+    
+    # Append the data
+    subs.append(email)
+    
+    try:
+        # Store the data in the database
+        with open(file_path, "w") as write_file:
+            json.dump(data, write_file, indent=4)
+    except Exception as error:
+        print(f"Failure to write to file: {error}")
+    
+    return "New subscriber added successfully"
+
 """ The weird line used below with the next() is called a generator expression which 
     loops through the read database that is users and checks if the database contains
     the requested email.
@@ -166,12 +199,11 @@ def register():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect("/")
+    return redirect(url_for("homePage"))
 
-def rank_quiz(category):
+"""def rank_quiz(category):
     # establish a connection to the database
     try:
-        
         with open(quizDatabaseVar, 'r') as quiz_file:
             return json.load(quiz_file)
         
@@ -189,23 +221,34 @@ def rank_quiz(category):
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     # based on the argument passed to this function query the database
+    
     # store the titles of the 
-    return "To-do"
+    return "To-do" """
 
 # Subscribing news letters
 @app.route("/subscribe", methods=["POST"])
 def subscribe():
-    email = request.form.get('email')
-    consent = request.form.get('consent')
+    if request.method == ["POST"]:
+        email = request.form.get('email')
+        consent = request.form.get('consent')
     
-    if email and consent: # this means if an email is inputed and the consent checkbox is ticked
-        # code to store the email in a database (probably a dedicated table for the news-letter)
-        # for now let's show it in the console for debugging, but ideally you would flash a success message
-        return email
+        if email and consent: # this means if an email is inputed and the consent checkbox is ticked
+            # code to store the email in a database (probably a dedicated table for the news-letter)
+            # for now let's show it in the console for debugging, but ideally you would flash a success message
+            result = writeNewsLetter(email)
+            
+            if result:
+                return redirect(url_for(homePage))
+        else:
+            return print("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
     else:
-        return flash("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
+        return print("Couldn't submit to database.")
+    
+@app.route("/")
+def index():
+    return redirect(url_for("homePage"))
 
-@app.route("/homePage")
+@app.route("/homePage", methods=["POST", "GET"])
 def homePage():
     return render_template("homePage.html")
 
@@ -223,7 +266,7 @@ def createAccount():
 
 @app.route("/loginPage")
 def loginPage():
-    return render_template("login.html")
+    return redirect(url_for("login"))
 
 @app.route("/termsAndConditions")
 def termsAndConditions():
@@ -275,6 +318,6 @@ def submit_quiz():
 
     # returning inputs
     return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
