@@ -4,13 +4,16 @@
         <!--SEO optimisation-->
         <meta charset="UTF-8">
         <meta name = "viewport" content = 'width=device-width, initial scale = 1.0'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="/static/css/createQuiz.css">
         <link rel="stylesheet" href="/static/css/style.css">
+        <script src="/static/javaScript/createQuiz.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Create quiz</title>
     </head>
     <!--put the navbar here somewhere-->
     <nav>
-        {% include 'navBar.html' %}   <!--Inserting the navbar template-->
+        {% include 'navBar.html' %}
     </nav>
 
     <body>
@@ -18,67 +21,70 @@
             <h1 class="createQuizTitle">
                 Create quiz
             </h1>
-            <section class='descriptionDiv'>
-                <!--Quiz title input-->
-                <section>
-                    <input class="quizTitle" type="text" placeholder="Quiz title">
+            <form action="/submit-quiz" method="POST">
+                <section class='descriptionDiv'>
+                    <!--Quiz title input-->
+                    <section>
+                        <input class="quizTitle" type="text" placeholder="Quiz title" name="quizTitleInput" required>
+                    </section>
+                    <!--description input--> 
+                    <textarea class='largeInput' placeholder='Enter description here' type = 'text' name="quizDescriptionInput" required></textarea>
+                    <section class="categorySelectionSection">
+                        <!--label for drop down menu category-->
+                        <label for = 'categoryInput'>Category:</label>
+
+                        <!--drop down menu-->
+                        <select required name = 'categoryInput' >
+                            <option value="" disabled selected hidden>Select category</option>
+                            <option value='generalKnowledge'>General knowledge</option>
+                            <option value='scienceAndNature'>Science and nature</option>
+                            <option value='history'>History</option>
+                            <option value='popCulture'>Pop culture</option>
+                            <option value='geography'>Geography</option>
+                        </select>
+                    </section>    
                 </section>
-                <!--description input--> 
-                <textarea class='largeInput' placeholder='Enter description here' type = 'text'></textarea>
-                <section class="categorySelectionSection">
-                    <!--label for drop down menu category-->
-                    <label for = 'category'>Category:</label>
 
-                    <!--drop down menu-->
-                    <select required name = 'category' >
-                        <option value="" disabled selected hidden>Select category</option>
-                        <option value='generalKnowledge'>General knowledge</option>
-                        <option value='scienceAndNature'>Science and nature</option>
-                        <option value='history'>History</option>
-                        <option value='popCulture'>Pop culture</option>
-                        <option value='geography'>Geography</option>
-                    </select>
-                </section>    
-            </section>
+                <!--add question section-->
+                <section id="questionsId">
+                    <section id="addQuestionId" class="addQuestion">
+                        <!--Question title input box-->
+                            <input class='questionTitle' type="text" placeholder="Question title" name="questionTitleInput" required>
 
-            <!--add question section-->
-            <section class="addQuestion">
-                <!--Question title input box-->
-                    <input class='questionTitle' type="text" placeholder="Question title">
-
-                <!--List of possible answers for the question-->
-                <section class="answerBox">
-                    <ul>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                        <li>
-                            <input class = 'answerBoxInput' type="text" placeholder="Answer input">
-                            <input type="checkbox">
-                        </li>
-                    </ul>
-                    <!--Add option button to add options to the question-->
-                    <button class="addOptionButton">
-                        <span class="icon">+</span>
-                        <span class="text">Add option</span>
-                    </button>
+                        <!--List of possible answers for the question-->
+                        <section class="answerBox">
+                            <ul id="answerInput">
+                                <li>
+                                    <input class = 'answerBoxInput' type="text" placeholder="Answer input" name="answer1Input" required>
+                                    <input type="checkbox" name="correctAnswer1">
+                                </li>
+                            </ul>
+                            <!--Add option button to add options to the question-->
+                            <button id="addOptionButtonId"name="addOptionButton" type="button" class="addOptionButton">
+                                <span class="icon">+</span>
+                                <span class="text">Add option</span>
+                            </button>
+                        </section>
+                    </section>
                 </section>
-            </section>
 
-            <!--Add question button-->
-            <button class="button addQuestionButton">
-                <img src="/static/plusIcon.png" alt="Add" class="icon">
-                <span class="text">Add question</span>
-            </button>
+                <!--Add question button-->
+                <button id="addQuestionButtonId" name="addQuestionButton" class="button addQuestionButton" type="button">
+                    <img src="/static/plusIcon.png" alt="Add" class="icon">
+                    <span class="text">Add question</span>
+                </button>
+
+                
+
+                <div class="submitButtonDiv">
+                    <input class='button submitButton' type="submit" value="Submit">
+                </div>
+            </form>
+
         </main>
     </body>
 
     <footer>
-        {% include 'footer.html' %}  <!--Inserting the footer template-->
+        {% include 'footer.html' %}
     </footer>
 </html>
