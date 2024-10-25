@@ -14,7 +14,7 @@
 
     <!--Add Navbar to top of page-->
     <nav>
-        {% include 'navbBar.html' %}
+        {% include 'navBar.html' %}
     </nav>
 
     <body>
@@ -25,7 +25,7 @@
             <!--Putting dropboxes/filters in a seperate section on the page-->
             <section class="dropboxes">
                 <!--Use forms so that the results can be used to render different lists-->
-                <form action="" method="post" id="filterForm">
+                <form action="{{ url_for('quizList')}}" method="post" id="filterForm">
                     <div class="test">
                         <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
                         <div id="categories" class="dropdownContent">
@@ -73,6 +73,7 @@
                             <a href="/takeQuizPage"><button class="takeQuizButton">Take Quiz</button></a> 
                         </div>
                     </li>
+                    {% endfor %}
                 </ul>
             </section>
         </main>
