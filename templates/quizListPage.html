@@ -14,7 +14,7 @@
 
     <!--Add Navbar to top of page-->
     <nav>
-        {% include 'navbar.html' %}
+        {% include 'navbBar.html' %}
     </nav>
 
     <body>
@@ -25,63 +25,28 @@
             <!--Putting dropboxes/filters in a seperate section on the page-->
             <section class="dropboxes">
                 <!--Use forms so that the results can be used to render different lists-->
-                <form action="" method="post" class="categoryFilter">
-                    <!--Run js function that reveals the dropbox when it is clicked-->
-                    <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
-                    <div id="categories" class="dropdownContent">
-                        <!--Create each button for the dropbox-->
-                        <!--I am currently using radio buttons but ideally it would use something else so 
-                        users can select multiple filters-->
-                        <label for="generalKnowledge">
-                            <input type="radio" id="generalKnowledge" name="category" value="generalKnowledge">
-                            General Knowledge</label>
-                        <label for="scienceAndNature">
-                            <input type="radio" id="scienceAndNature" name="category" value="scienceAndNature">
-                            Science and Nature</label>
-                        <label for="history">
-                            <input type="radio" id="history" name="category" value="history">
-                            History</label>
-                        <label for="popCulture">
-                            <input type="radio" id="popCulture" name="category" value="popCulture">
-                            Pop Culture
-                        </label>
-                        <label for="geography">
-                            <input type="radio" id="geography" name="category" value="geography">
-                            Geography
-                        </label>
-                    </div>
-                </form>
-                <!--Repeat for all dropboxes using different functions-->
-                <form action="" method="post" class="difficultyFilter">
-                    <button type="button" onclick="dropBox2()" class="dropbtn">difficulty</button>
-                    <div id="difficulties" class="dropdownContent">
-                        <label for="low">
-                            <input type="radio" id="lowDiff" name="difficulty" value="low">
-                            low</label>
-                        <label for="med">
-                            <input type="radio" id="medDiff" name="difficulty" value="med">
-                            medium</label>
-                        <label for="high">
-                            <input type="radio" id="highDiff" name="difficulty" value="high">
-                            high
-                        </label>
-                    </div>
-                </form>
-
-                <form action="" method="post" class="popularityFilter">
-                    <button type="button" onclick="dropBox3()" class="dropbtn">Popularity</button>
-                    <div id="popularities" class="dropdownContent">
-                        <label for="lowPop">
-                            <input type="radio" id="lowPop" name="popularity" value="low">
-                            low</label>
-                        <label for="medPop">
-                            <input type="radio" id="medPop" name="popularity" value="med">
-                            medium</label>
-                        <label for="highPop">
-                            <input type="radio" id="highPop" name="popularity" value="high">
-                            high
-                        </label>
-                    </div>
+                <form action="" method="post" id="filterForm">
+                        <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
+                        <div id="categories" class="dropdownContent">
+                            <label><input type="radio" name="category" value="generalKnowledge">General Knowledge</label>
+                            <label><input type="radio" name="category" value="scienceAndNature">Science and Nature</label>
+                            <label><input type="radio" name="category" value="history">History</label>
+                            <label><input type="radio" name="category" value="popCulture">Pop Culture</label>
+                            <label><input type="radio" name="category" value="geography">Geography</label>
+                        </div>
+                        <button type="button" onclick="dropBox2()" class="dropbtn">Difficulty</button>
+                        <div id="difficulties" class="dropdownContent">
+                            <label><input type="radio" name="difficulty" value="low">Low</label>
+                            <label><input type="radio" name="difficulty" value="med">Medium</label>
+                            <label><input type="radio" name="difficulty" value="high">High</label>
+                        </div>
+                        <button type="button" onclick="dropBox3()" class="dropbtn">Popularity</button>
+                        <div id="popularities" class="dropdownContent">
+                            <label><input type="radio" name="popularity" value="low">Low</label>
+                            <label><input type="radio" name="popularity" value="med">Medium</label>
+                            <label><input type="radio" name="popularity" value="high">High</label>
+                        </div>
+                    <button type="submit" class="filterSubmitButton">Apply Filters</button>
                 </form>
             </section>
 
