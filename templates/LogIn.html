@@ -15,18 +15,11 @@
 
 <body>
 
-    <nav class="navStyle fade-in"> <!-- Calls the class style and fade in so that they are implemented -->
-        <a href="#homePage.html">Homepage</a> <!-- Link to the homepage -->
-        <a href="#createQuiz.html">Create Quiz</a><!-- Link to the Create Quiz page -->
-        <a href="#quizList.html">Quiz List</a><!-- Link to the homepage -->
-        <a href="#createAccount.html">Create account</a><!-- Link to the Create Account page -->
-        <a href="#LogIn.html">Log in</a><!-- Link to the HomePage -->
-    </nav> <!-- Closing the nav div -->
-
+    
     
     <h1 draggable="true" class="heading">QUIZIFY</h1>
     <section class="login_form">
-        <form id="login" action="/loginPage" method="post">
+        <form id="login" action="{{ url_for('loginPage')}}" method="post">
             <h2 class="loginform_heading">LOG IN</h2>
             <label for="email">Email</label><br>
             <input type="text" id="email" name="email" placeholder="Please Enter Your Email..."><br>
@@ -38,5 +31,6 @@
     <script src="../static/javaScript/loginpage.js"></script>
 </body>
 <footer class="footer">
+    {% include 'footer.html' %}
 </footer>
 </html>
