@@ -26,6 +26,7 @@
             <section class="dropboxes">
                 <!--Use forms so that the results can be used to render different lists-->
                 <form action="" method="post" id="filterForm">
+                    <div class="test">
                         <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
                         <div id="categories" class="dropdownContent">
                             <label><input type="radio" name="category" value="generalKnowledge">General Knowledge</label>
@@ -34,18 +35,23 @@
                             <label><input type="radio" name="category" value="popCulture">Pop Culture</label>
                             <label><input type="radio" name="category" value="geography">Geography</label>
                         </div>
+                    </div>
+                    <div class="test">
                         <button type="button" onclick="dropBox2()" class="dropbtn">Difficulty</button>
                         <div id="difficulties" class="dropdownContent">
                             <label><input type="radio" name="difficulty" value="low">Low</label>
                             <label><input type="radio" name="difficulty" value="med">Medium</label>
                             <label><input type="radio" name="difficulty" value="high">High</label>
                         </div>
+                    </div>
+                    <div class="test">
                         <button type="button" onclick="dropBox3()" class="dropbtn">Popularity</button>
                         <div id="popularities" class="dropdownContent">
                             <label><input type="radio" name="popularity" value="low">Low</label>
                             <label><input type="radio" name="popularity" value="med">Medium</label>
                             <label><input type="radio" name="popularity" value="high">High</label>
                         </div>
+                    </div>
                     <button type="submit" class="filterSubmitButton">Apply Filters</button>
                 </form>
             </section>

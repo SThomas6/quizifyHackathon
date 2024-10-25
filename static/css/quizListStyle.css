@@ -6,19 +6,22 @@
 .dropboxes{
   display: inline-flex;
   justify-content: space-around;
-  align-items: center;
   width: 70%;
   background-color: #ffffff;
   border-radius:7px;
   padding-top: 1em;
   padding-bottom: 1em;
 }
+.test{
+  display: inline-flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+
 
 /*Styling the colour and size of the buttons*/
 .dropbtn {
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
   background-color: #2d2d2d;
   color: white;
   padding: 16px;
@@ -26,7 +29,6 @@
   border:none;
   border-radius: 4px;
   cursor: pointer;
-  position: relative;
 }
 
 /*change dropdown button colour on hover & focus*/
@@ -34,6 +36,15 @@
   background-color: #2980B9;
 }
 
+.filterSubmitButton{
+  background-color: #40749c;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border:none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 /*The container <div> - used to position the dropdown content*/
 .categoryFilter {
   position: relative;
@@ -54,6 +65,7 @@
 .dropdownContent {
   display: none;
   position: absolute;
+  margin-top:48px;
   background-color: #474747;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
