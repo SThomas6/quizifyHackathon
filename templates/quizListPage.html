@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!--SEO optimization + link stylesheets-->
+        <meta charset="UTF-8">
+        <meta name = "viewport">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/quizListStyle.css">
+        <script src="../static/javaScript/quizListPage.js"></script>
+        <title>Quiz List</title>
+    </head>
+
+
+    <!--Add Navbar to top of page-->
+    <nav>
+        {% include 'navBar.html' %}
+    </nav>
+
+    <body>
+        <main class="mainContent">
+            <h1>
+                Quiz List
+            </h1>
+            <!--Putting dropboxes/filters in a seperate section on the page-->
+            <section class="dropboxes">
+                <!--Use forms so that the results can be used to render different lists-->
+                <form action="{{ url_for('quizList')}}" method="post" id="filterForm">
+                    <div class="test">
+                        <button type="button" onclick="dropBox1()" class="dropbtn">Category</button> 
+                        <div id="categories" class="dropdownContent">
+                            <label><input type="radio" name="category" value="generalKnowledge">General Knowledge</label>
+                            <label><input type="radio" name="category" value="scienceAndNature">Science and Nature</label>
+                            <label><input type="radio" name="category" value="history">History</label>
+                            <label><input type="radio" name="category" value="popCulture">Pop Culture</label>
+                            <label><input type="radio" name="category" value="geography">Geography</label>
+                        </div>
+                    </div>
+                    <div class="test">
+                        <button type="button" onclick="dropBox2()" class="dropbtn">Difficulty</button>
+                        <div id="difficulties" class="dropdownContent">
+                            <label><input type="radio" name="difficulty" value="low">Low</label>
+                            <label><input type="radio" name="difficulty" value="med">Medium</label>
+                            <label><input type="radio" name="difficulty" value="high">High</label>
+                        </div>
+                    </div>
+                    <div class="test">
+                        <button type="button" onclick="dropBox3()" class="dropbtn">Popularity</button>
+                        <div id="popularities" class="dropdownContent">
+                            <label><input type="radio" name="popularity" value="low">Low</label>
+                            <label><input type="radio" name="popularity" value="med">Medium</label>
+                            <label><input type="radio" name="popularity" value="high">High</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="filterSubmitButton">Apply Filters</button>
+                </form>
+            </section>
+
+            <section class="quizzes">  <!--new section for the quiz list-->
+                <ul class="quizList">   
+                    {% for quiz in quizzes %}  <!--Iterate through quizzes in database and create
+                    a segment (li) for each one containing its information-->
+                    <li class="quiz">
+                        <div class="quizInfo"> <!--container for flex layout-->
+                            <h1 class="quizTitle">{{ quiz.title }}</h1>   <!--Inserting the title of 'quiz'-->
+                            <section class="quizDescription">     <!--keeping the description title and description together-->
+                                <h2 class="descriptionTitle">Description</h2>
+                                <p class="description">{{ quiz.description }}</p>  <!--Inserting the description for 'quiz'-->
+                            </section>
+                            <!--Due to not having had time to create the database yet, or figure out how we are going to
+                            link it in (possibly link 'takeQuizPage' and pass the quiz title as a variable to render
+                            the chosen quiz) I am using this as a placeholder-->
+                            <a href="/takeQuizPage"><button class="takeQuizButton">Take Quiz</button></a> 
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </main>
+    </body>
+
+    <!--Add Footer to bottom of page-->
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</html>
