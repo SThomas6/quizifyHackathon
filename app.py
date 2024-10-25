@@ -252,7 +252,7 @@ def loginPage():
 
 @app.route("/termsAndConditions")
 def termsAndConditions():
-    return render_template("termsAndConditions.html")
+    return render_template("termsAndConditionPage.html")
 
 @app.route("/privacyPolicy")
 def privacyPolicy():
