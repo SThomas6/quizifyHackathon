@@ -13,18 +13,14 @@
     </nav>
     <body>
         <main class="layout content">
-            <h1 class="takingQuizTitle"> Quiz </h1>
+            <h1 class="takingQuizTitle"> Quiz title</h1>
                 <section class='descriptionDiv'>
-                    <!--Quiz title-->
-                    <section>
-                        <label class="quizTitle" type="text" placeholder="Quiz title" name="quizTitle"></label>
-                    </section>
                     <!--description label--> 
-                    <label class='description boxStyle' placeholder='description here' type = 'text' name="quizDescription" ></label>
+                    <label class='description boxStyle' placeholder='description here' type = 'text' name="quizDescription" >This description will be oulled from the json file and inserted here</label>
                     <section class="displayCategory">
                         <!--displaying the category-->
                         <label>Category:</label>
-                        <label name = 'category'>"Category"</label>
+                        <label name = 'category'>"example"</label>
                     </section>    
                 </section>
                 <!--add question section-->
@@ -35,15 +31,15 @@
                     <section class="answerBox">
                         <ul>
                             <li>
-                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer1label">
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer1label">Answer 1</label>
                                 <input class ="checkbox" type="checkbox" name="correctAnswer1">
                             </li>
                             <li>
-                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer2label">
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer2label">Answer 2</label>
                                 <input class ="checkbox" type="checkbox" name="correctAnswer2">
                             </li>
                             <li>
-                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer3label">
+                                <label class = 'answerBoxStyle answerBoxlabel' type="text" placeholder="Answer label" name="answer3label">Answer 3</label>
                                 <input class ="checkbox" type="checkbox" name="correctAnswer3">
                             </li>
                         </ul>
@@ -53,10 +49,6 @@
                 <button class="button submitButton">
                     <span class="text">Submit</span>
                 </button>
-
-                <div>
-                    <label class='button submitButton' type="submit" value="Submit">
-                </div>
         </main>
     </body>
     <footer>
