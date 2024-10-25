@@ -1,6 +1,5 @@
 from flask import Flask, redirect, render_template, request, flash, session, url_for
 from flask_session import Session
-from werkzeug.security import check_password_hash, generate_password_hash
 import json
 import os
 # might need flask_session library and session module
@@ -37,13 +36,6 @@ def read_user():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-
-# For writing data to the database (experimental)
-def write_quiz(data):
-    with open(quizDatabase, "w") as quiz_file:
-        json.dump(data, quiz_file, indent=4)
-
-
 def writeToDatabase(new_element, database_route, database):
     file_path = database_route
     
@@ -53,9 +45,9 @@ def writeToDatabase(new_element, database_route, database):
             # Load existing data
             data = json.load(read_file)
             
-            """ This line ensures that the json file is a dictionary first, 
+            """ The below line ensures that the json file is a dictionary first, 
             then if that dictionary has an element of the database (either user or quiz), 
-            and finall it checks whether the element is list.
+            and finally it checks whether the element is list.
             Source for isinstance(): https://www.w3schools.com/python/ref_func_isinstance.asp"""
             
             if isinstance(data, dict) and database in data and isinstance(data[database], list):
@@ -109,14 +101,6 @@ def writeNewsLetter(email):
     
     return "New subscriber added successfully"
 
-""" The weird line used below with the next() is called a generator expression which 
-    loops through the read database that is users and checks if the database contains
-    the requested email.
-    source: https://www.geeksforgeeks.org/generator-expressions/
-    
-    next() function returns the next item in an iterable
-    source: https://docs.python.org/3/library/functions.html#next"""
-
 def check_email(email):
     users = read_user().get("user", [])  # this line tries to read the "user" database and in the case it doen't exist it will create a new list
     email = email.lower()  # turning the email argument to lowercase letter
@@ -137,7 +121,7 @@ def check_password(password, email):
                 return True
     return False
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/loginPage", methods=["POST", "GET"])
 def login():
     
     session.clear()
@@ -148,16 +132,16 @@ def login():
         
         if not email:
             flash("Must Enter Email")
-            return render_template("login.html")
+            return render_template("LogIn.html")
         
         elif not password:
             flash("Must Enter Password")
-            return render_template("login.html")
+            return render_template("LogIn.html")
         
         user = check_email(email)
         if not user:
             flash("Email does not exist!")
-            return render_template("login.html")
+            return render_template("LogIn.html")
         
         else:
             # Use check_password_hash to compare input password and stored password hash
@@ -166,12 +150,11 @@ def login():
                 return redirect(url_for("homePage"))
             else:
                 flash("Wrong Password")
-                return render_template("login.html")
-    return render_template("login.html")
+                return render_template("LogIn.html")
+    return render_template("LogIn.html")
 
 
 @app.route("/register", methods=["POST", "GET"])
-@app.route("/register.html", methods=["POST", "GET"])
 def register():
     session.clear()
     
@@ -194,7 +177,7 @@ def register():
         
         return "email already exists, login instead."
     
-    return render_template("register.html")
+    return render_template("createAccount.html")
 
 @app.route("/logout")
 def logout():
@@ -226,7 +209,7 @@ def logout():
     return "To-do" """
 
 # Subscribing news letters
-@app.route("/subscribe", methods=["POST"])
+@app.route("/subscribe", methods=["POST", "GET"])
 def subscribe():
     if request.method == ["POST"]:
         email = request.form.get('email')
@@ -235,10 +218,9 @@ def subscribe():
         if email and consent: # this means if an email is inputed and the consent checkbox is ticked
             # code to store the email in a database (probably a dedicated table for the news-letter)
             # for now let's show it in the console for debugging, but ideally you would flash a success message
-            result = writeNewsLetter(email)
-            
+            writeNewsLetter(email)
             if result:
-                return redirect(url_for(homePage))
+                return redirect(url_for("homePage"))
         else:
             return print("Sorry, you must provide an email and agree to our privacy policy to subscribe.")
     else:
@@ -258,11 +240,11 @@ def createQuiz():
 
 @app.route("/quizList")
 def quizList():
-    return render_template("quizList.html")
+    return render_template("quizListPage.html")
 
 @app.route("/createAccount")
 def createAccount():
-    return render_template("createAccount.html")
+    return redirect(url_for("register"))
 
 @app.route("/loginPage")
 def loginPage():
@@ -276,9 +258,37 @@ def termsAndConditions():
 def privacyPolicy():
     return render_template("privacyPolicy.html")
 
+@app.route("/quizTaking")
+def quizTaking():
+    return render_template("quizTaking.html")
+
 @app.route("/create-quiz")
 def create_quiz():
     return render_template('createQuiz.html')
+
+
+def saveQuiz(quiz_details):
+    file_path = "data/quiz.json"
+
+    if os.path.exists(file_path):
+        with open(file_path, "r") as read_file:
+            data = json.load(read_file)
+
+            if isinstance(data, dict) and "quiz" in data and isinstance(data["quiz"], list):
+                quizzes = data["quiz"]
+            else:
+                return "Error sending over data to the quiz database"
+    else:
+        data = {"quiz": []}
+        quizzes = data["quiz"]
+
+    quizzes.append(quiz_details)
+
+    with open(file_path, "w") as quiz_file:
+        json.dump(data, quiz_file, indent=4)
+
+    return "Quiz was added successfully!"
+
 
 #submit quiz function to collect the create quiz data
 @app.route('/submit-quiz', methods=['POST'])
@@ -291,13 +301,21 @@ def submit_quiz():
 
     #Getting the answers from teh form and putting them into a variable
     questionAnswer1 = request.form.get('answer1Input')
-    questionAnswer2 = request.form.get('answer2Input')
-    questionAnswer3 = request.form.get('answer3Input')
 
     #Getting the value of the checkbox from the form and checking if the value is true or false
     correctAnswer1 = True if request.form.get('correctAnswer1') else False
-    correctAnswer2 = True if request.form.get('correctAnswer2') else False
-    correctAnswer3 = True if request.form.get('correctAnswer3') else False
+
+
+    quizData={
+        "quizTitle": quizTitle,
+        "quizDescription": quizDescription,
+        "selectedCategory": selectedCategory,
+        "questionTitle": questionTitle,
+        "questionAnswer1": questionAnswer1,
+        "correctAnswer1": correctAnswer1
+        }
+
+    saveQuiz(quizData)
 
 
     #printing the data to the console
@@ -308,16 +326,14 @@ def submit_quiz():
 
     #Getting the answers that have been submitted
     print(f"Question Answer 1: {questionAnswer1}")
-    print(f"Question Answer 2: {questionAnswer2}")
-    print(f"Question Answer 3: {questionAnswer3}")
+
 
     #Getting the boolean value of the checkbox to check which answer is correct
     print(f"Correct answer 1: {correctAnswer1}")
-    print(f"Correct answer 2: {correctAnswer2}")
-    print(f"Correct answer 3: {correctAnswer3}")
+
 
     # returning inputs
-    return f"Quiz submitted! Title: {quizTitle}, Category: {selectedCategory}"
+    return redirect(url_for("quizTaking"))
 
 if __name__ == "__main__":
     app.run(debug=True)
