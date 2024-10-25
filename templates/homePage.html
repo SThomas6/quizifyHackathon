@@ -17,13 +17,13 @@
         <main class="layout content">
             <h1 class="heading1"> Ready to create <br>your own quiz?</h1>
             <p><b> It's quick, easy and completely free. a simple way <br>to engage your audience or challenge your friends</b></p>
-            <a class="homePageButton" href="createQuiz.html">Get started</a><br> <!-- Link to the Create Quiz page -->
+            <a class="homePageButton" href="{{ url_for('createQuiz') }}">Get started</a><br> <!-- Link to the Create Quiz page -->
 
             <div class="imagesContainer">
-                <img class="categoryImage" src="/quizifyhackathon2/static/images/generalKnowledge.avif">
-                <img class="categoryImage" src="/quizifyhackathon2/static/images/history.jpg">
-                <img class="categoryImage" src="/quizifyhackathon2/static/images/politics.webp">
-                <img class="categoryImage" src="/quizifyhackathon2/static/images/science.png">
+                <img class="categoryImage" src="/static/images/generalKnowledge.avif">
+                <img class="categoryImage" src="/static/images/history.jpg">
+                <img class="categoryImage" src="/static/images/politics.webp">
+                <img class="categoryImage" src="/static/images/science.png">
             </div>
             
             <h2> From Teaching To Raising Awareness</h2>
@@ -32,7 +32,7 @@
                 Quizifi makes it easy to build the perfect quiz in minutes. No coding, no hassle—just pure creativity!</b></p>
             <h1 class="heading1"> Browse our most<br> popular quizzes</h1>
             <p><b>Discover ready-made quizzes that are fun, engaging, <br>and designed to test your knowledge or spark new ideas.</p></b>
-            <a class="homePageButton" href="quizList.html">Open Quizzez</a><br> <!-- Link to the Quiz List apage -->
+            <a class="homePageButton" href="{{ url_for('quizList') }}">Open Quizzez</a><br> <!-- Link to the Quiz List apage -->
         </main>
     </body>
     <footer>
