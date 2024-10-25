@@ -9,6 +9,11 @@
             "email": "wedsffae@sdf.com",
             "password": "1234",
             "account_type": null
+        },
+        {
+            "email": "email@email.com",
+            "password": "1234",
+            "account_type": null
         }
     ]
 }
