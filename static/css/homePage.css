@@ -1,0 +1,52 @@
+.content {
+    flex-direction: column;
+    align-items: center;
+}
+.homePageButton {
+    background-color: rgba(0,212,255,1); /* Sets the background of buttons to a light blue */
+    color: #FFFFFF; /* Sets the font within all buttons to white */
+    padding: 10px 20px;
+    border: 0.15vw solid #000000; /* Sets border colour to black */
+    font-size: 16px;
+    cursor: pointer; 
+    border-radius: 50px;
+    transition: background-color 0.3s; /* Sets a timer for the transition so that its smoother */
+    width: 100px;
+    text-align: center;
+ }
+ /* Changes the background colour of buttons when they are being hovered over */
+ .homePageButton:hover {
+    background-color: rgba(9,81,121,1);
+ }
+ .heading1 {
+    font-size: 70px;
+    color: #000000;
+ }
+ .image {
+    min-width: 45vw;
+    height: 20vw;
+    min-height: 200px;
+ }
+
+/*styling the images in the container*/
+.imagesContainer{
+   display: flex;
+   justify-content: center;
+   height: 450px;
+   gap: 10px;
+}
+
+/*for images in the images container give these styles*/
+.imagesContainer .categoryImage{
+   width: 10%;
+   height:100;
+   object-fit:cover;
+   border-radius:10px;
+   border: 2px solid #000000;
+   transition: all ease-in-out 0.5s;
+}
+
+/*when mouse is over the image change the width of the image*/
+.imagesContainer .categoryImage:hover{
+   width: 25%;
+}

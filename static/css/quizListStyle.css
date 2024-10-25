@@ -1,0 +1,143 @@
+.mainContent{
+  text-align: center;
+}
+
+/*arranging the dropboxes with flex and styling the colours*/
+.dropboxes{
+  display: inline-flex;
+  justify-content: space-around;
+  width: 70%;
+  background-color: #ffffff;
+  border-radius:7px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.test{
+  display: inline-flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+
+
+/*Styling the colour and size of the buttons*/
+.dropbtn {
+  background-color: #2d2d2d;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border:none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/*change dropdown button colour on hover & focus*/
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.filterSubmitButton{
+  background-color: #40749c;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border:none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/*The container <div> - used to position the dropdown content*/
+.categoryFilter {
+  position: relative;
+  display: inline-block;
+}
+
+.difficultyFilter {
+  position: relative;
+  display: inline-block;
+}
+
+.popularityFilter{
+  position: relative;
+  display: inline-block;
+}
+
+/*Dropdown Content styling (Hidden by Default)*/
+.dropdownContent {
+  display: none;
+  position: absolute;
+  margin-top:48px;
+  background-color: #474747;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* styling links inside the dropdown */
+.dropdownContent label, .dropdownContent input {
+  color: rgb(255, 255, 255);
+  padding: 4%;
+  text-decoration: none;  
+  display: flex;
+  align-items: center;
+}
+
+.dropdownContent label{
+  margin-bottom: 0;
+}
+
+/* Change color of dropdown links on hover */
+.dropdownContent label:hover {background-color: #ddd;}
+
+/* Show the dropdown menu (used JS to add this class to the .dropdown-content container when user clicks on the dropdown button) */
+.show {display:block;}
+
+.quizList{  /*removing bullet points from the quizlist*/
+  list-style: none;
+  padding: 0;
+}
+
+/* Flexbox for arranging bits of info side by side */
+.quizInfo{
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: space-around; /* Adds space between sections */
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 7px;
+  width:70%
+}
+
+/*Set background of quizTitle*/
+.quizTitle{
+  background-color: #61b2e8;
+  padding:5px;
+}
+
+/*Styling the quiz description, I kept the title in the box for readability*/
+.quizDescription{
+  background-color:#0073c0;
+  padding:16px;
+  padding-top:0px;
+  margin:5px;
+}
+
+.descriptionTitle{
+  text-decoration: underline;
+}
+
+.takeQuizButton{
+  background-color: #003381;
+  color: white;
+  padding: 16px;  /*styled take quiz button to look similar to dropboxes for consistency, 
+  and made it the same size for easy use as well. Gave it a different colour to show it has a different
+  use*/
+  font-size: 16px;
+  border:none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/*Make it clear when mouse is over takeQuiz*/
+.takeQuizButton:hover, .takeQuizButton:focus {
+  background-color: #2980B9;
+}
+
