@@ -1,0 +1,154 @@
+.content{
+    flex-direction: column;
+}
+
+/*Divider for the description section of the create quiz page*/
+.descriptionDiv{
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 6px;
+    flex-direction: column;
+}
+
+/*Giving grey colour to placeholder text in dropdown menu when user hasn't selected anything*/
+select:invalid{
+    color:grey;
+}
+
+
+/* Giving each option in the dropdown box a colour of black*/
+option{
+    color:black;
+}
+
+/*Quiz title class for h1 tag in the html page*/
+.createQuizTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+/* Dropdown menu to select the category*/
+.categorySelectionSection{
+    display: flex;
+    font-size: 20px;
+}
+/*the input area to input the description for the quiz that is being created*/
+.largeInput{
+    display: flex;
+    height: 100px;
+    max-height: 200px;
+    width: 100%;
+    font-size: 20px;
+    max-width: 60vw;
+    margin: 10px;
+    border-radius: 6px;
+}
+
+/* Quiz question section of the page*/
+
+/*the title for the quiz that is being created*/
+.quizTitle{
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    border-radius: 6px;
+}
+
+/*the section to add the question to the quiz*/
+.addQuestion{
+    flex-direction: column;
+    background-color: #f5f5f5;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+/*the title for the question*/
+.questionTitle{
+    width: 30%;
+    margin: 20px;
+    padding: 10px;
+    font-size: 35px;
+    border-radius: 6px;
+    width: 40%;
+    min-width: 225px;
+    
+}
+
+/*the input area for the answer for the question*/
+.answerBoxInput{
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+/*add question button*/
+.addQuestionButton{
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+.buttonContent{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+/*Add option for the question button styling*/
+.addOptionButton {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: #000000; /* Adjust the color to match the blue/purple in your image */
+    font-size: 16px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-left: 40px;
+}
+
+/* Add icon styling */
+.addOptionButton .icon {
+    font-size: 24px;
+    margin-right: 8px; /* Space between the icon and text */
+}
+
+/* Add question button styling */
+.addQuestionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the icon and text */
+    margin: auto;
+    border-radius: 5px;
+}
+
+  /* Icon styling */
+.addQuestionButton .icon {
+width: 20px;  /* Adjust based on the size of the icon */
+height: 20px; /* Adjust based on the size of the icon */
+display: inline-block;
+}
+
+/*submit button styling and positioning*/
+.submitButton{
+    height: 40px;
+    width: 100px;
+}
+
+.submitButtonDiv{
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    margin: 40px;
+}
+
+
