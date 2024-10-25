@@ -1,6 +1,8 @@
 .mainContent{
   text-align: center;
 }
+
+/*arranging the dropboxes with flex and styling the colours*/
 .dropboxes{
   display: inline-flex;
   justify-content: space-around;
@@ -11,6 +13,7 @@
   padding-bottom: 1em;
 }
 
+/*Styling the colour and size of the buttons*/
 .dropbtn {
   background-color: #2d2d2d;
   color: white;
@@ -21,12 +24,12 @@
   cursor: pointer;
 }
 
-/* Dropdown button on hover & focus */
+/*change dropdown button colour on hover & focus*/
 .dropbtn:hover, .dropbtn:focus {
   background-color: #2980B9;
 }
 
-/* The container <div> - needed to position the dropdown content */
+/*The container <div> - used to position the dropdown content*/
 .categoryFilter {
   position: relative;
   display: inline-block;
@@ -42,7 +45,7 @@
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
+/*Dropdown Content styling (Hidden by Default)*/
 .dropdownContent {
   display: none;
   position: absolute;
@@ -52,7 +55,7 @@
   z-index: 1;
 }
 
-/* Links inside the dropdown */
+/* styling links inside the dropdown */
 .dropdownContent label, .dropdownContent input {
   color: rgb(255, 255, 255);
   padding: 4%;
@@ -68,7 +71,7 @@
 /* Change color of dropdown links on hover */
 .dropdownContent label:hover {background-color: #ddd;}
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show the dropdown menu (used JS to add this class to the .dropdown-content container when user clicks on the dropdown button) */
 .show {display:block;}
 
 .quizList{  /*removing bullet points from the quizlist*/
@@ -76,13 +79,48 @@
   padding: 0;
 }
 
-/* Flexbox for arranging elements side by side */
+/* Flexbox for arranging bits of info side by side */
 .quizInfo{
   display: inline-flex;
   align-items: center; /* Align items vertically in the center */
-  justify-content: space-around; /* Adds space between elements */
-  border: 1px solid #ddd; /* Optional: Add border for box effect */
+  justify-content: space-around; /* Adds space between sections */
+  border: 1px solid #ddd;
   background-color: #f9f9f9;
   border-radius: 7px;
   width:70%
 }
+
+/*Set background of quizTitle*/
+.quizTitle{
+  background-color: #61b2e8;
+  padding:5px;
+}
+
+/*Styling the quiz description, I kept the title in the box for readability*/
+.quizDescription{
+  background-color:#0073c0;
+  padding:16px;
+  padding-top:0px;
+  margin:5px;
+}
+
+.descriptionTitle{
+  text-decoration: underline;
+}
+
+.takeQuizButton{
+  background-color: #003381;
+  color: white;
+  padding: 16px;  /*styled take quiz button to look similar to dropboxes for consistency, 
+  and made it the same size for easy use as well. Gave it a different colour to show it has a different
+  use*/
+  font-size: 16px;
+  border:none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/*Make it clear when mouse is over takeQuiz*/
+.takeQuizButton:hover, .takeQuizButton:focus {
+  background-color: #2980B9;
+}
+

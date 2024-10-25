@@ -85,15 +85,22 @@
                 </form>
             </section>
 
-            <section class="quizzes">
-                <ul class="quizList">
-                    <div class="quizInfo"> <!--container for flex layout-->
-                        <h1 class="quizTitle">Quiz1</h1>
-                        <section class="quizDescription">
-                            <h2 class="descriptionTitle">Description</h2>
-                            <p class="description">This quiz is very fun and cool</p>
-                        </section>
-                        <button class="takeQuizButton">Take Quiz</button>
+            <section class="quizzes">  <!--new section for the quiz list-->
+                <ul class="quizList">   
+                    {% for quiz in quizzes %}  <!--Iterate through quizzes in database and create
+                    a segment (li) for each one containing its information-->
+                    <li class="quiz">
+                        <div class="quizInfo"> <!--container for flex layout-->
+                            <h1 class="quizTitle">{{ quiz.title }}</h1>   <!--Inserting the title of 'quiz'-->
+                            <section class="quizDescription">     <!--keeping the description title and description together-->
+                                <h2 class="descriptionTitle">Description</h2>
+                                <p class="description">{{ quiz.description }}</p>  <!--Inserting the description for 'quiz'-->
+                            </section>
+                            <!--Due to not having had time to create the database yet, or figure out how we are going to
+                            link it in (possibly link 'takeQuizPage' and pass the quiz title as a variable to render
+                            the chosen quiz) I am using this as a placeholder-->
+                            <a href="{{ quiz.link }}"><button class="takeQuizButton">Take Quiz</button></a> 
+                        </div>
                     </li>
                 </ul>
             </section>
